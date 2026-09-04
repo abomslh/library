@@ -396,10 +396,10 @@
   "use strict";
 
   // =============================================
-  // إعدادات GitHub API
+  // إعدادات GitHub API - تم تحديثها لك
   // =============================================
-  const GITHUB_TOKEN = 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'; // ضع توكنك هنا
-  const GITHUB_REPO = 'username/repo';  // مثلاً 'Ahmed123/maktabati'
+  const GITHUB_TOKEN = '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';
+  const GITHUB_REPO = 'abomslh/library';
   const GITHUB_PATH = 'data.json';
 
   const PASSWORD = '200155';
@@ -1063,11 +1063,9 @@
   // فحص الجلسة عند تحميل الصفحة
   // =============================================
   if (isLoggedIn()) {
-    // المستخدم مسجل دخول بالفعل → نخفي شاشة الدخول ونشغل التطبيق
     document.getElementById('loginScreen').classList.add('hidden');
     initApp();
   } else {
-    // نعرض شاشة الدخول
     document.getElementById('loginScreen').classList.remove('hidden');
     document.getElementById('app').style.display = 'none';
   }
