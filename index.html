@@ -396,7 +396,7 @@
   "use strict";
 
   // =============================================
-  // إعدادات GitHub API - تم تحديثها لك
+  // إعدادات GitHub API (محدَّثة)
   // =============================================
   const GITHUB_TOKEN = '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';
   const GITHUB_REPO = 'abomslh/library';
@@ -405,7 +405,7 @@
   const PASSWORD = '200155';
 
   // =============================================
-  // إدارة حالة الدخول
+  // إدارة جلسة الدخول (sessionStorage)
   // =============================================
   const SESSION_KEY = 'maktabati_logged_in';
 
@@ -422,21 +422,18 @@
   }
 
   // =============================================
-  // المتغيرات العامة
+  // دوال مساعدة للترميز base64 مع UTF-8
   // =============================================
-  var books = [];
-  var currentId = null;
-  var pendingDeleteId = null;
-  var isEditing = false;
-  var highlightTerm = null;
-  var isSyncing = false;
-  var lastSync = 0;
+  function utf8ToBase64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+  }
 
-  // عناصر DOM
-  var els = {};
+  function base64ToUtf8(base64) {
+    return decodeURIComponent(escape(atob(base64)));
+  }
 
   // =============================================
-  // دوال GitHub API
+  // دوال GitHub API (مع إصلاح الترميز)
   // =============================================
   async function getFileFromGitHub() {
     try {
@@ -448,11 +445,15 @@
         }
       });
       if (!res.ok) {
-        if (res.status === 404) return { content: '[]', sha: null };
+        if (res.status === 404) {
+          // الملف غير موجود، نرجع محتوى فارغاً
+          return { content: '[]', sha: null };
+        }
         throw new Error(`GitHub API error: ${res.status}`);
       }
       const data = await res.json();
-      const content = atob(data.content);
+      // فك الترميز باستخدام دالة base64ToUtf8
+      const content = base64ToUtf8(data.content);
       return { content, sha: data.sha };
     } catch (e) {
       console.error('فشل جلب البيانات من GitHub:', e);
@@ -465,7 +466,7 @@
       const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`;
       const payload = {
         message: 'تحديث البيانات من تطبيق المكتبة',
-        content: btoa(content),
+        content: utf8ToBase64(content),
         sha: sha || undefined
       };
       const res = await fetch(url, {
@@ -489,6 +490,9 @@
   // =============================================
   // دوال المزامنة
   // =============================================
+  var books = [];
+  var isSyncing = false;
+
   async function syncFromGitHub() {
     if (isSyncing) return;
     isSyncing = true;
@@ -501,12 +505,12 @@
         if (Array.isArray(parsed)) {
           books = parsed;
           books.forEach(b => { if (!b.tracks) b.tracks = []; });
-          lastSync = Date.now();
-          renderLibrary(els.searchInput ? els.searchInput.value : '');
+          renderLibrary(document.getElementById('searchInput').value || '');
           updateSyncStatus('تم التحميل ✅', false);
           return;
         }
       }
+      // إذا فشل التحميل نستخدم البيانات المحلية
       loadBooksFromLocal();
       updateSyncStatus('تم التحميل (محلياً)', false);
     } catch(e) {
@@ -528,7 +532,6 @@
       const sha = result ? result.sha : null;
       const newSha = await saveFileToGitHub(content, sha);
       if (newSha) {
-        lastSync = Date.now();
         updateSyncStatus('تم الحفظ ✅', false);
       } else {
         updateSyncStatus('فشل الحفظ ❌', false);
@@ -550,7 +553,7 @@
   }
 
   // =============================================
-  // التخزين المحلي
+  // التخزين المحلي (احتياطي)
   // =============================================
   function loadBooksFromLocal() {
     try {
@@ -572,8 +575,13 @@
   }
 
   // =============================================
-  // دوال مساعدة
+  // دوال إدارة الكتب (داخلية - نفس الكود السابق)
   // =============================================
+  var currentId = null;
+  var pendingDeleteId = null;
+  var isEditing = false;
+  var highlightTerm = null;
+
   function uid() { return "b_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2,8); }
 
   function formatDate(ts) {
@@ -610,7 +618,7 @@
   }
 
   // =============================================
-  // عرض المكتبة والمحرر
+  // عرض المكتبة والمحرر (نفس الكود السابق مع بعض التعديلات)
   // =============================================
   function renderLibrary(filter) {
     filter = (filter || "").trim().toLowerCase();
@@ -827,6 +835,7 @@
     showScreen("library");
   }
 
+  // ===== البحث =====
   function performSearch(query) {
     var resultsDiv = document.getElementById('searchResults');
     if (!query.trim()) {
@@ -1060,7 +1069,7 @@
   }
 
   // =============================================
-  // فحص الجلسة عند تحميل الصفحة
+  // بدء التشغيل - فحص الجلسة
   // =============================================
   if (isLoggedIn()) {
     document.getElementById('loginScreen').classList.add('hidden');
@@ -1070,7 +1079,6 @@
     document.getElementById('app').style.display = 'none';
   }
 
-  // ربط أحداث الدخول
   document.getElementById('loginBtn').addEventListener('click', handleLogin);
   document.getElementById('loginPassword').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') handleLogin();
