@@ -2,501 +2,1695 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>مكتبتي السحابية</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>حِـبْـر | مساحة الشعر والأدب</title>
+
+<!-- Favicon: ريشة ومحبرة -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✒️</text></svg>">
+
+<!-- الخطوط العربية الفاخرة -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- مكتبة تحويل العناصر إلى صور بدقة فائقة -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <style>
-  * { box-sizing:border-box; margin:0; }
-  html, body { height:100%; font-family:'Amiri', serif; background:#f4f0e4; color:#262119; }
-  button, input { font-family:'Cairo', sans-serif; }
-  ::-webkit-scrollbar { width:8px; }
-  ::-webkit-scrollbar-thumb { background:#d9cfb2; border-radius:10px; }
+  :root {
+    --font-amiri: 'Amiri', serif;
+    --font-ruqaa: 'Aref Ruqaa', serif;
+    --font-cairo: 'Cairo', sans-serif;
+    --font-naskh: 'Noto Naskh Arabic', serif;
+
+    /* الثيم الافتراضي: ورق بيج دافئ كلاسيكي */
+    --bg: #f5f0e4;
+    --bg-2: #ebdcc0;
+    --surface: #fdfbf7;
+    --ink: #262017;
+    --ink-soft: #675943;
+    --accent: #7a2e4e;
+    --accent-hover: #91375d;
+    --accent-2: #c69a3a;
+    --line: #dfd2b5;
+    --page-bg: #fdfbf6;
+    --shadow: rgba(38, 32, 23, 0.16);
+    --watermark-color: rgba(122, 46, 78, 0.42);
+    --gold: #b38b36;
+    --drawer-bg: rgba(253, 251, 247, 0.97);
+  }
+
+  /* باقة درجات البيج والورق الطبيعي */
+  body[data-theme="beige-sand"] {
+    --bg: #eeddbb;
+    --bg-2: #dfcaa2;
+    --surface: #f9f0d9;
+    --ink: #302313;
+    --ink-soft: #6a573a;
+    --accent: #873e23;
+    --accent-hover: #a14c2d;
+    --accent-2: #b8860b;
+    --line: #d2bc90;
+    --page-bg: #faf3e1;
+    --shadow: rgba(48, 35, 19, 0.2);
+    --watermark-color: rgba(135, 62, 35, 0.42);
+    --gold: #a67c1e;
+    --drawer-bg: rgba(249, 240, 217, 0.98);
+  }
+
+  body[data-theme="beige-ivory"] {
+    --bg: #faf7ee;
+    --bg-2: #f0ebd9;
+    --surface: #ffffff;
+    --ink: #1f1f1f;
+    --ink-soft: #63615a;
+    --accent: #2e5d7a;
+    --accent-hover: #376e91;
+    --accent-2: #c29838;
+    --line: #e3decb;
+    --page-bg: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --watermark-color: rgba(46, 93, 122, 0.38);
+    --gold: #b8860b;
+    --drawer-bg: rgba(255, 255, 255, 0.98);
+  }
+
+  body[data-theme="beige-linen"] {
+    --bg: #e2d7c0;
+    --bg-2: #d4c7ad;
+    --surface: #eee5d3;
+    --ink: #2e241b;
+    --ink-soft: #695a4a;
+    --accent: #5e3b4d;
+    --accent-hover: #754a61;
+    --accent-2: #99783d;
+    --line: #c7b99c;
+    --page-bg: #f4ece0;
+    --shadow: rgba(46, 36, 27, 0.2);
+    --watermark-color: rgba(94, 59, 77, 0.42);
+    --gold: #9e7a35;
+    --drawer-bg: rgba(238, 229, 211, 0.98);
+  }
+
+  body[data-theme="sepia"] {
+    --bg: #e8d9b5;
+    --bg-2: #decd9f;
+    --surface: #f3e7c3;
+    --ink: #3b2c17;
+    --ink-soft: #6e5c36;
+    --accent: #8b3855;
+    --accent-hover: #9e4363;
+    --accent-2: #486e42;
+    --line: #cdb982;
+    --page-bg: #f7edd1;
+    --shadow: rgba(60, 46, 24, 0.22);
+    --watermark-color: rgba(139, 56, 85, 0.42);
+    --gold: #aa7d28;
+    --drawer-bg: rgba(243, 231, 195, 0.98);
+  }
+
+  body[data-theme="beige-vintage"] {
+    --bg: #e7ddc9;
+    --bg-2: #d8cbaf;
+    --surface: #f1e9da;
+    --ink: #2b221a;
+    --ink-soft: #635547;
+    --accent: #6f3b4f;
+    --accent-hover: #864860;
+    --accent-2: #a5813f;
+    --line: #cfbf9e;
+    --page-bg: #f7f1e5;
+    --shadow: rgba(43, 34, 26, 0.18);
+    --watermark-color: rgba(111, 59, 79, 0.42);
+    --gold: #a5813f;
+    --drawer-bg: rgba(241, 233, 218, 0.98);
+  }
+
+  body[data-theme="night"] {
+    --bg: #111417;
+    --bg-2: #181c20;
+    --surface: #1e2227;
+    --ink: #ece6da;
+    --ink-soft: #a59e90;
+    --accent: #d88faa;
+    --accent-hover: #e6a7be;
+    --accent-2: #52a895;
+    --line: #2d3339;
+    --page-bg: #16191d;
+    --shadow: rgba(0, 0, 0, 0.55);
+    --watermark-color: rgba(216, 143, 170, 0.45);
+    --gold: #d4af37;
+    --drawer-bg: rgba(30, 34, 39, 0.98);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: var(--font-amiri); background: var(--bg); color: var(--ink); transition: background 0.25s, color 0.25s; }
+  button, input, select { font-family: var(--font-cairo); }
+  ::-webkit-scrollbar { width: 7px; height: 7px; }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent-2); }
 
   /* ===== شاشة تسجيل الدخول ===== */
   #loginScreen {
-    position:fixed; inset:0; z-index:999; background:var(--bg, #f4f0e4);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:20px; padding:20px;
+    position: fixed; inset: 0; z-index: 9999;
+    background: radial-gradient(circle at 50% 30%, var(--surface), var(--bg));
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 24px; text-align: center;
   }
-  #loginScreen.hidden { display:none; }
-  #loginScreen .logo {
-    font-family:'Aref Ruqaa', serif; font-size:2.5rem; color:#7a2e4e;
-  }
-  #loginScreen .sub {
-    color:#5b5240; font-size:0.9rem;
-  }
-  #loginScreen input {
-    width:280px; padding:12px 18px; border:2px solid #d9cfb2; border-radius:30px;
-    font-size:1rem; text-align:center; background:#fffdf7;
-  }
-  #loginScreen input:focus { outline:2px solid #7a2e4e; }
-  #loginScreen button {
-    padding:10px 40px; border:none; border-radius:30px; background:#7a2e4e;
-    color:#fff; font-size:1rem; cursor:pointer; transition:0.2s;
-  }
-  #loginScreen button:hover { filter:brightness(1.1); }
-  #loginError { color:#b33; font-size:0.85rem; height:1.5rem; }
+  #loginScreen.hidden { display: none !important; }
 
-  /* ===== باقي الأنماط ===== */
-  :root {
-    --bg:#f4f0e4; --bg-2:#ece5d2; --surface:#fffdf7; --ink:#262119; --ink-soft:#5b5240;
-    --accent:#7a2e4e; --accent-2:#c69a3a; --line:#d9cfb2; --page-bg:#fffdf6; --shadow:rgba(38,33,25,0.28);
+  .login-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 40px 32px;
+    width: min(90vw, 380px);
+    box-shadow: 0 20px 50px var(--shadow);
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    animation: fadeInScale 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-  body[data-theme="night"] {
-    --bg:#14171a; --bg-2:#1b1f23; --surface:#20252a; --ink:#e9e4d6; --ink-soft:#a8a190;
-    --accent:#d68fae; --accent-2:#4f9c8a; --line:#34393f; --page-bg:#1c2024; --shadow:rgba(0,0,0,0.55);
-  }
-  body[data-theme="sepia"] {
-    --bg:#e6d7b3; --bg-2:#ddccA0; --surface:#f1e5bf; --ink:#3c2e18; --ink-soft:#6b5a37;
-    --accent:#8a3b5a; --accent-2:#4b6b45; --line:#cbb680; --page-bg:#f7ecc9; --shadow:rgba(60,46,24,0.35);
-  }
-  body { background:var(--bg); color:var(--ink); transition:background .35s; overflow:hidden; }
 
-  .app { display:flex; flex-direction:column; height:100dvh; }
+  .login-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-ruqaa); font-size: 2.8rem; color: var(--accent);
+    letter-spacing: 1px;
+  }
+  .login-logo .nib { font-size: 2.4rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); }
+  .login-sub { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.6; max-width: 280px; }
+  
+  .login-input-wrap { position: relative; width: 100%; margin-top: 6px; }
+  .login-input-wrap input {
+    width: 100%; padding: 13px 44px 13px 44px;
+    border: 2px solid var(--line); border-radius: 30px;
+    font-size: 1.05rem; text-align: center; background: var(--bg);
+    color: var(--ink); outline: none; transition: 0.2s border-color;
+  }
+  .login-input-wrap input:focus { border-color: var(--accent); }
+  .login-input-wrap .toggle-eye {
+    position: absolute; inset-inline-end: 14px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; color: var(--ink-soft); font-size: 1.1rem;
+    padding: 4px;
+  }
 
+  .login-btn {
+    width: 100%; padding: 12px; border: none; border-radius: 30px;
+    background: var(--accent); color: #fff; font-size: 1.05rem; font-weight: 600;
+    cursor: pointer; transition: 0.2s transform, 0.2s background;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: 0 4px 14px rgba(122, 46, 78, 0.35);
+  }
+  .login-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .login-btn:active { transform: scale(0.98); }
+  #loginError { color: #d32f2f; font-size: 0.88rem; min-height: 1.3rem; font-weight: 600; }
+
+  /* ===== التطبيق الرئيسي ===== */
+  .app { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; position: relative; }
+
+  /* الشريط العلوي */
   .topbar {
-    flex:none; display:flex; align-items:center; gap:10px; padding:10px 18px;
-    background:var(--surface); border-bottom:1px solid var(--line); z-index:40;
+    flex: none; display: flex; align-items: center; gap: 10px; padding: 9px 16px;
+    background: var(--surface); border-bottom: 1px solid var(--line);
+    z-index: 50; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
   }
-  .brand { display:flex; align-items:center; gap:10px; cursor:pointer; }
-  .brand .mark {
-    width:30px; height:30px; border-radius:50%; border:1.5px solid var(--accent-2);
-    display:flex; align-items:center; justify-content:center; color:var(--accent);
-    font-family:'Aref Ruqaa', serif; font-size:1rem; flex:none;
-  }
-  .brand b { font-family:'Aref Ruqaa', serif; font-size:1.25rem; color:var(--ink); }
-  .tb-sep { width:1px; align-self:stretch; background:var(--line); margin:2px 4px; }
 
-  .search-wrap {
-    position:relative; margin-inline-start:6px; flex:1; max-width:320px;
+  .brand {
+    display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;
+    transition: opacity 0.15s;
   }
+  .brand:hover { opacity: 0.85; }
+  .brand .mark {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .brand b {
+    font-family: var(--font-ruqaa); font-size: 1.6rem; color: var(--accent);
+    font-weight: 700; letter-spacing: 0.5px;
+  }
+
+  .tb-sep { width: 1px; height: 24px; background: var(--line); margin: 0 3px; }
+
+  .search-wrap { position: relative; flex: 1; max-width: 280px; }
   .search-wrap svg {
-    position:absolute; inset-inline-start:10px; top:50%; transform:translateY(-50%);
-    width:16px; height:16px; color:var(--ink-soft); pointer-events:none;
+    position: absolute; inset-inline-start: 12px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; color: var(--ink-soft); pointer-events: none;
   }
   .search-wrap input {
-    width:100%; padding:8px 12px 8px 12px; padding-inline-start:34px;
-    border:1px solid var(--line); border-radius:20px; background:var(--bg);
-    color:var(--ink); font-size:0.88rem;
+    width: 100%; padding: 7px 14px 7px 34px;
+    border: 1px solid var(--line); border-radius: 20px;
+    background: var(--bg); color: var(--ink); font-size: 0.88rem;
+    outline: none; transition: 0.2s border-color, 0.2s box-shadow;
   }
-  .search-wrap input:focus { outline:2px solid var(--accent); }
+  .search-wrap input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(122, 46, 78, 0.12);
+  }
 
   #searchResults {
-    position:absolute; top:calc(100% + 6px); inset-inline-start:0; width:100%;
-    background:var(--surface); border:1px solid var(--line); border-radius:8px;
-    box-shadow:0 10px 30px var(--shadow); max-height:300px; overflow-y:auto;
-    display:none; z-index:100; padding:8px 0;
+    position: absolute; top: calc(100% + 8px); inset-inline-start: 0; width: 100%;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    box-shadow: 0 12px 35px var(--shadow); max-height: 320px; overflow-y: auto;
+    display: none; z-index: 200; padding: 6px 0;
   }
   #searchResults .result-item {
-    padding:8px 16px; cursor:pointer; border-bottom:1px solid var(--bg-2);
-    transition:background 0.15s ease;
+    padding: 9px 15px; cursor: pointer; border-bottom: 1px solid var(--bg-2);
+    transition: background 0.15s;
   }
-  #searchResults .result-item:hover { background:var(--bg-2); }
+  #searchResults .result-item:hover { background: var(--bg-2); }
   #searchResults .result-item .book-title {
-    font-weight:600; color:var(--accent); font-size:0.85rem;
+    font-weight: 700; color: var(--accent); font-size: 0.9rem;
+    font-family: var(--font-cairo);
   }
   #searchResults .result-item .snippet {
-    font-size:0.8rem; color:var(--ink-soft); display:block;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    font-size: 0.82rem; color: var(--ink-soft); display: block;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;
   }
   #searchResults .result-item .snippet mark {
-    background:var(--accent-2); color:var(--surface); padding:0 2px; border-radius:2px;
+    background: var(--accent-2); color: #fff; padding: 1px 4px; border-radius: 3px;
   }
   #searchResults .no-results {
-    padding:16px; text-align:center; color:var(--ink-soft); font-size:0.85rem;
+    padding: 16px; text-align: center; color: var(--ink-soft); font-size: 0.86rem;
   }
 
-  .nav-cluster { display:flex; align-items:center; gap:6px; margin-inline-start:auto; }
-  .theme-switch { display:flex; gap:4px; background:var(--bg); border:1px solid var(--line); border-radius:20px; padding:3px; }
-  .theme-dot { width:22px; height:22px; border-radius:50%; border:2px solid transparent; cursor:pointer; padding:0; }
-  .theme-dot[data-t="day"] { background:#f4f0e4; box-shadow:inset 0 0 0 1px #cfc4a0; }
-  .theme-dot[data-t="night"] { background:#14171a; box-shadow:inset 0 0 0 1px #444; }
-  .theme-dot[data-t="sepia"] { background:#e6d7b3; box-shadow:inset 0 0 0 1px #b39d68; }
-  .theme-dot.active { border-color:var(--accent); }
+  .nav-cluster { display: flex; align-items: center; gap: 7px; margin-inline-start: auto; }
+
+  .sync-status {
+    font-size: 0.74rem; color: var(--ink-soft); padding: 5px 11px;
+    background: var(--bg); border-radius: 14px; border: 1px solid var(--line);
+    display: flex; align-items: center; gap: 5px; white-space: nowrap; user-select: none;
+  }
+  .sync-status.syncing { border-color: var(--accent-2); color: var(--accent); }
+
+  /* محدد الثيمات المتنوعة للبيج */
+  .theme-dropdown-wrap { position: relative; }
+  .theme-btn-select {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 18px;
+    padding: 5px 10px; font-size: 0.8rem; cursor: pointer; display: flex;
+    align-items: center; gap: 6px; color: var(--ink); font-weight: 600;
+  }
+  .theme-btn-select:hover { border-color: var(--accent); }
+  .theme-color-dot {
+    width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.2);
+    background: var(--bg-2); display: inline-block;
+  }
+
+  .theme-menu {
+    position: absolute; top: calc(100% + 6px); inset-inline-end: 0;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    box-shadow: 0 10px 30px var(--shadow); width: 170px; display: none;
+    flex-direction: column; z-index: 500; overflow: hidden; padding: 4px 0;
+  }
+  .theme-menu.open { display: flex; }
+  .theme-opt {
+    padding: 8px 12px; font-size: 0.82rem; cursor: pointer; display: flex;
+    align-items: center; gap: 8px; color: var(--ink); transition: background 0.15s;
+  }
+  .theme-opt:hover { background: var(--bg-2); }
+  .theme-opt.active { font-weight: 700; color: var(--accent); }
+  .theme-opt .dot {
+    width: 15px; height: 15px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.25);
+    flex-shrink: 0;
+  }
+
+  .btn-icon {
+    background: var(--bg); border: 1px solid var(--line); color: var(--ink);
+    border-radius: 18px; padding: 6px 11px; font-size: 0.82rem; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px; transition: 0.15s;
+  }
+  .btn-icon:hover { background: var(--bg-2); border-color: var(--accent); color: var(--accent); }
 
   .btn-new {
-    display:flex; align-items:center; gap:6px; padding:8px 16px; border-radius:20px;
-    border:1px solid var(--accent); background:var(--accent); color:var(--surface);
-    font-size:0.86rem; cursor:pointer; white-space:nowrap;
-    transition:filter .15s ease, transform .1s ease;
+    display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; border-radius: 20px;
+    border: none; background: var(--accent); color: #fff;
+    font-size: 0.86rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+    box-shadow: 0 3px 8px rgba(122, 46, 78, 0.25);
+    transition: 0.2s background, 0.15s transform;
   }
-  .btn-new:hover { filter:brightness(1.08); }
-  .btn-new:active { transform:scale(.97); }
-  .btn-new svg { width:15px; height:15px; }
+  .btn-new:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .btn-new:active { transform: scale(0.97); }
+  .btn-new svg { width: 15px; height: 15px; }
 
-  .logout-btn {
-    background:transparent; border:1px solid var(--line); border-radius:16px;
-    padding:4px 12px; font-size:0.75rem; color:var(--ink-soft); cursor:pointer;
+  .btn-import-txt {
+    background: var(--surface); border: 1px solid var(--accent-2); color: var(--ink);
+    border-radius: 20px; padding: 5px 11px; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+    transition: 0.15s all;
   }
-  .logout-btn:hover { background:var(--bg-2); color:var(--ink); }
+  .btn-import-txt:hover { background: var(--bg-2); border-color: var(--accent); color: var(--accent); }
 
-  .view { flex:1; min-height:0; position:relative; overflow:hidden; }
+  /* شاشات العرض */
+  .view { flex: 1; min-height: 0; position: relative; overflow: hidden; }
   .screen {
-    position:absolute; inset:0; overflow-y:auto; overflow-x:hidden;
-    opacity:0; transform:translateY(10px) scale(.99); pointer-events:none;
-    transition: opacity .32s cubic-bezier(.22,.61,.36,1), transform .32s cubic-bezier(.22,.61,.36,1);
+    position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden;
+    opacity: 0; transform: translateY(8px) scale(0.995); pointer-events: none;
+    transition: opacity 0.24s cubic-bezier(0.2, 0.8, 0.4, 1), transform 0.24s cubic-bezier(0.2, 0.8, 0.4, 1);
   }
-  .screen.active { opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .screen.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 
-  .library-wrap { max-width:1100px; margin:0 auto; padding:34px 26px 60px; }
+  /* شاشة الإفلات */
+  .dropzone-overlay {
+    position: fixed; inset: 0; background: rgba(122, 46, 78, 0.88); z-index: 99999;
+    backdrop-filter: blur(6px); display: none; flex-direction: column; align-items: center;
+    justify-content: center; color: #fff; text-align: center; gap: 16px; pointer-events: none;
+  }
+  .dropzone-overlay.active { display: flex; }
+  .dropzone-box {
+    border: 3px dashed #fff; border-radius: 20px; padding: 40px 50px;
+    background: rgba(255,255,255,0.1);
+  }
+  .dropzone-box h2 { font-family: var(--font-ruqaa); font-size: 2.2rem; }
+
+  /* ===== رفوف المكتبة ===== */
+  .library-wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 70px; }
+  .shelf-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 22px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
+    flex-wrap: wrap; gap: 10px;
+  }
+  .shelf-header h2 {
+    font-family: var(--font-ruqaa); font-size: 1.5rem; color: var(--ink);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .shelf-actions { display: flex; align-items: center; gap: 10px; }
+  .shelf-count { font-size: 0.86rem; color: var(--ink-soft); font-family: var(--font-cairo); }
+
   .empty-state {
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    padding:80px 20px; gap:18px; color:var(--ink-soft); animation:riseIn .5s ease both;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 75px 20px; gap: 18px; color: var(--ink-soft);
   }
   .empty-state .glyph {
-    width:74px; height:74px; border-radius:50%; border:1.5px dashed var(--line);
-    display:flex; align-items:center; justify-content:center; color:var(--accent-2);
-    font-family:'Aref Ruqaa', serif; font-size:2rem;
+    width: 76px; height: 76px; border-radius: 50%; border: 2px dashed var(--accent-2);
+    display: flex; align-items: center; justify-content: center; font-size: 2.2rem;
+    background: var(--surface); color: var(--accent);
   }
-  .empty-state h2 { font-family:'Aref Ruqaa', serif; font-size:1.5rem; color:var(--ink); margin:0; font-weight:400; }
-  .empty-state p { max-width:380px; line-height:2; margin:0; font-size:0.95rem; }
-  .empty-state .btn-new { margin-top:6px; padding:10px 22px; font-size:0.9rem; }
+  .empty-state h2 { font-family: var(--font-ruqaa); font-size: 1.6rem; color: var(--ink); }
+  .empty-state p { max-width: 440px; line-height: 1.9; font-size: 0.95rem; }
 
-  .shelf-label { display:flex; align-items:baseline; gap:10px; margin:0 0 20px; color:var(--ink-soft); font-size:0.85rem; }
-  .shelf-label b { font-family:'Aref Ruqaa', serif; color:var(--ink); font-size:1.1rem; font-weight:400; }
+  .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 26px 20px; }
+  .book-card { display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s; position: relative; }
+  .book-card:hover { transform: translateY(-4px); }
 
-  .book-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:26px 22px; }
-  .book-card { display:flex; flex-direction:column; cursor:pointer; animation:riseIn .4s ease both; }
   .book-card .spine {
-    position:relative; height:210px; border-radius:4px 8px 8px 4px;
-    box-shadow:0 10px 24px var(--shadow), inset 0 0 0 1px rgba(0,0,0,0.08);
-    display:flex; flex-direction:column; align-items:center; justify-content:space-between;
-    padding:18px 10px; transition:transform .22s cubic-bezier(.22,.61,.36,1), box-shadow .22s ease;
-    text-align:center; overflow:hidden;
+    position: relative; height: 215px; border-radius: 4px 10px 10px 4px;
+    box-shadow: 0 12px 26px var(--shadow), inset 0 0 0 1px rgba(0,0,0,0.08);
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    padding: 18px 12px; text-align: center; overflow: hidden;
   }
   .book-card .spine::before {
-    content:""; position:absolute; inset-inline-start:0; top:0; bottom:0; width:8px;
-    background:rgba(0,0,0,0.15);
+    content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0; width: 10px;
+    background: rgba(0,0,0,0.18);
   }
   .book-card .spine::after {
-    content:""; position:absolute; inset:0;
-    background:linear-gradient(135deg, rgba(255,255,255,0.16), transparent 55%);
-    pointer-events:none;
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent 60%);
+    pointer-events: none;
   }
-  .book-card:hover .spine { transform:translateY(-6px); box-shadow:0 18px 32px var(--shadow), inset 0 0 0 1px rgba(0,0,0,0.08); }
   .book-card .spine-title {
-    font-family:'Aref Ruqaa', serif; font-size:1.15rem; line-height:1.5; color:#fdf9ef;
-    text-shadow:0 1px 3px rgba(0,0,0,0.35); word-break:break-word;
+    font-family: var(--font-ruqaa); font-size: 1.22rem; line-height: 1.5; color: #fffdf7;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.45); word-break: break-word; z-index: 2;
+    padding: 0 4px;
   }
-  .book-card .spine-glyph { font-family:'Aref Ruqaa', serif; font-size:1.4rem; color:rgba(255,255,255,0.55); }
-  .book-card .meta { padding:10px 4px 0; text-align:center; }
-  .book-card .meta .t { font-size:0.88rem; color:var(--ink); font-family:'Cairo', sans-serif; font-weight:600; }
-  .book-card .meta .d { font-size:0.72rem; color:var(--ink-soft); margin-top:2px; }
+  .book-card .spine-glyph {
+    font-family: var(--font-ruqaa); font-size: 1.5rem; color: rgba(255,255,255,0.65); z-index: 2;
+  }
+  .book-card .meta { padding: 9px 4px 0; text-align: center; }
+  .book-card .meta .t {
+    font-size: 0.9rem; color: var(--ink); font-family: var(--font-cairo);
+    font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .book-card .meta .d { font-size: 0.74rem; color: var(--ink-soft); margin-top: 3px; font-family: var(--font-cairo); }
 
-  .book-card .card-actions { position:absolute; top:8px; left:8px; display:flex; gap:4px; opacity:0; transition:opacity .15s ease; }
-  .book-card:hover .card-actions { opacity:1; }
+  .book-card .card-actions {
+    position: absolute; top: 8px; left: 8px; display: flex; gap: 5px;
+    opacity: 0; transition: opacity 0.2s; z-index: 10;
+  }
+  .book-card:hover .card-actions { opacity: 1; }
   .card-actions button {
-    width:26px; height:26px; border-radius:50%; border:none; background:rgba(0,0,0,0.32); color:#fff;
-    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    width: 27px; height: 27px; border-radius: 50%; border: none;
+    background: rgba(0,0,0,0.45); color: #fff; backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: 0.15s background, 0.15s transform;
   }
-  .card-actions button:hover { background:rgba(0,0,0,0.5); }
-  .card-actions svg { width:13px; height:13px; }
+  .card-actions button:hover { background: rgba(180, 40, 40, 0.85); transform: scale(1.1); }
+  .card-actions svg { width: 14px; height: 14px; }
 
-  @keyframes riseIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  /* ===== محرر الشعر وصفحة الكتاب ===== */
+  .editor-wrap {
+    max-width: 900px; margin: 0 auto; padding: 20px 18px 80px; min-height: 100%;
+    display: flex; flex-direction: column;
+  }
 
-  .editor-wrap { max-width:880px; margin:0 auto; padding:26px 26px 80px; min-height:100%; position:relative; }
-  .editor-head {
-    display:flex; align-items:center; gap:12px; margin-bottom:22px; flex-wrap:wrap;
+  .editor-top-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 14px; flex-wrap: wrap;
   }
   .back-btn {
-    display:flex; align-items:center; gap:6px; background:transparent; border:none;
-    color:var(--ink-soft); font-family:'Cairo',sans-serif; font-size:0.85rem;
-    cursor:pointer; padding:6px 4px;
+    display: inline-flex; align-items: center; gap: 6px; background: transparent; border: none;
+    color: var(--ink-soft); font-family: var(--font-cairo); font-size: 0.88rem; font-weight: 600;
+    cursor: pointer; padding: 6px 8px; border-radius: 8px; transition: 0.15s;
   }
-  .back-btn:hover { color:var(--accent); }
-  .back-btn svg { width:16px; height:16px; }
+  .back-btn:hover { color: var(--accent); background: var(--bg-2); }
+  .back-btn svg { width: 16px; height: 16px; }
 
-  .title-field {
-    flex:1; min-width:150px; background:transparent; border:none;
-    border-bottom:1.5px solid transparent;
-    font-family:'Aref Ruqaa', serif; font-size:1.7rem; color:var(--ink);
-    padding:4px 2px; text-align:center;
-  }
-  .title-field:focus { outline:none; border-bottom-color:var(--accent); }
-  .title-field::placeholder { color:var(--ink-soft); opacity:0.6; }
+  .editor-top-actions { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
 
-  .editor-actions { display:flex; gap:8px; }
   .action-btn {
-    padding:6px 16px; border-radius:18px; border:1px solid var(--line);
-    background:var(--bg); color:var(--ink); cursor:pointer; font-family:'Cairo',sans-serif; font-size:0.8rem;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px; border: 1px solid var(--line);
+    background: var(--surface); color: var(--ink); cursor: pointer;
+    font-size: 0.82rem; font-weight: 600; transition: 0.15s;
   }
-  .action-btn:hover { background:var(--accent); color:var(--surface); border-color:var(--accent); }
-  .action-btn.primary { background:var(--accent); color:var(--surface); border-color:var(--accent); }
-  .action-btn.primary:hover { filter:brightness(1.1); }
+  .action-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--bg-2); }
+  .action-btn.primary {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+    box-shadow: 0 3px 8px rgba(122, 46, 78, 0.25);
+  }
+  .action-btn.primary:hover { background: var(--accent-hover); color: #fff; }
+  .action-btn.capture-btn {
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+    color: #fff; border: none; box-shadow: 0 3px 10px rgba(30, 60, 114, 0.3);
+  }
+  .action-btn.capture-btn:hover { filter: brightness(1.1); color: #fff; }
 
   .save-status {
-    font-size:0.74rem; color:var(--ink-soft); font-family:'Cairo',sans-serif;
-    display:flex; align-items:center; gap:5px; min-width:60px; justify-content:flex-end;
+    font-size: 0.76rem; color: var(--ink-soft); font-family: var(--font-cairo);
+    display: flex; align-items: center; gap: 5px; min-width: 75px; justify-content: flex-end;
   }
-  .save-status .dot { width:6px; height:6px; border-radius:50%; background:var(--accent-2); transition:opacity .3s ease; }
-  .save-status.saving .dot { animation:pulse 1s ease infinite; }
-  @keyframes pulse { 0%,100%{opacity:.4;} 50%{opacity:1;} }
+  .save-status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-2); transition: 0.3s; }
+  .save-status.unsaved .dot { background: #e65100; animation: pulse 1s infinite; }
+  .save-status.saved .dot { background: #2e7d32; }
 
-  .color-edit-area {
-    display:none; align-items:center; gap:14px; justify-content:center;
-    margin-bottom:20px; flex-wrap:wrap;
+  /* شريط أدوات التنسيق والتحكم بالشعر */
+  .poetry-toolbar {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 7px 12px; margin-bottom: 14px; display: flex; align-items: center;
+    justify-content: space-between; gap: 8px; flex-wrap: wrap; box-shadow: 0 2px 8px var(--shadow);
   }
-  .color-edit-area.visible { display:flex; }
-  .color-edit-area label { font-size:0.85rem; color:var(--ink-soft); }
-  .color-edit-area input[type="color"] {
-    width:40px; height:40px; border:2px solid var(--line); border-radius:50%;
-    padding:2px; cursor:pointer; background:transparent;
+  .tool-group { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+  .tool-btn {
+    background: var(--bg); border: 1px solid var(--line); color: var(--ink);
+    border-radius: 8px; padding: 5px 9px; font-size: 0.78rem; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 4px; transition: 0.15s;
   }
-  .color-preview {
-    display:inline-block; width:30px; height:30px; border-radius:50%;
-    border:2px solid var(--line);
+  .tool-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .tool-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .tool-select {
+    background: var(--bg); border: 1px solid var(--line); color: var(--ink);
+    border-radius: 8px; padding: 4px 8px; font-size: 0.8rem; outline: none;
+    cursor: pointer;
+  }
+
+  .book-header-box {
+    text-align: center; margin-bottom: 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .title-field {
+    width: 100%; max-width: 650px; background: transparent; border: none;
+    border-bottom: 2px dashed transparent;
+    font-family: var(--font-ruqaa); font-size: 2.1rem; color: var(--ink);
+    padding: 6px 12px; text-align: center; transition: 0.2s border-color;
+  }
+  .title-field:focus { outline: none; border-bottom-color: var(--accent); }
+  .title-field::placeholder { color: var(--ink-soft); opacity: 0.5; }
+
+  .color-bar {
+    display: none; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--ink-soft);
+  }
+  .color-bar.visible { display: flex; }
+  .color-bar input[type="color"] {
+    width: 30px; height: 30px; border: 2px solid var(--line); border-radius: 50%;
+    cursor: pointer; background: transparent; padding: 0;
+  }
+
+  /* ===== صفحة الكتاب مع العلامة المائية ===== */
+  .page-container {
+    position: relative; flex: 1; display: flex; flex-direction: column;
   }
 
   .page-surface {
-    background:var(--page-bg); border-radius:6px;
-    box-shadow:0 14px 36px var(--shadow), inset 0 0 0 1px rgba(0,0,0,0.05);
-    padding:46px 8vw; min-height:60vh; transition:background .35s ease;
+    position: relative;
+    background: var(--page-bg);
+    border-radius: 8px;
+    box-shadow: 0 16px 40px var(--shadow), inset 0 0 0 1px rgba(0,0,0,0.06);
+    padding: 48px 7vw 65px;
+    min-height: 65vh;
+    transition: background 0.25s ease, font-size 0.2s, line-height 0.2s;
+    text-align: center;
+    font-family: var(--font-amiri);
+    font-size: 1.36rem;
+    line-height: 2.7;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    tab-size: 4;
+    outline: none;
   }
-  .page-surface[contenteditable="true"]:focus { outline:none; }
-  .page-surface[contenteditable="false"] { cursor:default; opacity:0.85; }
-  .page-surface { font-family:'Amiri', serif; font-size:1.28rem; line-height:2.6; color:var(--ink); white-space:pre-wrap; word-wrap:break-word; }
-  .page-surface:empty::before { content: attr(data-placeholder); color:var(--ink-soft); opacity:0.55; }
-  .page-surface mark.search-highlight {
-    background:var(--accent-2); color:var(--surface); padding:0 4px; border-radius:3px;
+  .page-surface[contenteditable="false"] { cursor: default; }
+  .page-surface[contenteditable="true"] { cursor: text; }
+  .page-surface:empty::before {
+    content: attr(data-placeholder);
+    color: var(--ink-soft); opacity: 0.45; pointer-events: none;
   }
 
-  .editor-foot { display:flex; justify-content:space-between; align-items:center; margin-top:14px; color:var(--ink-soft); font-family:'Cairo',sans-serif; font-size:0.76rem; }
+  .page-watermark {
+    position: absolute;
+    inset-inline-end: 24px;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-ruqaa);
+    color: var(--watermark-color);
+    user-select: none;
+    pointer-events: none;
+    z-index: 10;
+    direction: rtl;
+  }
+  .page-watermark .wm-badge {
+    font-size: 1.35rem; font-weight: 700; letter-spacing: 1.5px;
+    display: flex; align-items: center; gap: 4px;
+    border-bottom: 1.5px solid currentColor; padding-bottom: 2px;
+  }
+  .page-watermark .wm-badge .nib-icon {
+    font-size: 1.05rem; transform: rotate(-45deg); display: inline-block;
+  }
+  .page-watermark .wm-tagline {
+    font-size: 0.72rem; font-family: var(--font-cairo); opacity: 0.85;
+  }
 
+  .editor-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 14px; color: var(--ink-soft); font-family: var(--font-cairo); font-size: 0.8rem;
+    padding: 0 4px;
+  }
+  .foot-counters { display: flex; gap: 14px; }
+
+  /* ===== المشغل الصوتي العائم المطور والمصغر على اليسار ===== */
+  .audio-fab {
+    position: fixed;
+    bottom: 22px;
+    inset-inline-start: 20px;
+    z-index: 8500;
+    background: var(--surface);
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    border-radius: 30px;
+    padding: 7px 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.22s all cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .audio-fab:hover {
+    transform: translateY(-2px) scale(1.03);
+    background: var(--accent); color: #fff;
+  }
+  .audio-fab .music-icon { font-size: 1.15rem; }
+  .audio-fab.playing .music-icon { animation: musicBounce 1.2s infinite ease-in-out; }
+  .audio-fab .fab-title { font-size: 0.84rem; font-weight: 700; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  @keyframes musicBounce {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.18) rotate(10deg); }
+  }
+
+  /* القائمة العائمة المدمجة والأنيقة */
+  .audio-drawer {
+    position: fixed;
+    bottom: 74px;
+    inset-inline-start: 18px;
+    width: min(92vw, 340px);
+    max-height: 75vh;
+    background: var(--drawer-bg);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 16px 45px rgba(0,0,0,0.32);
+    z-index: 8600;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: drawerSlideUp 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .audio-drawer.open { display: flex; }
+
+  @keyframes drawerSlideUp {
+    from { opacity: 0; transform: translateY(14px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .drawer-head {
+    padding: 10px 14px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .drawer-head h3 {
+    font-family: var(--font-ruqaa);
+    font-size: 1.15rem;
+    color: var(--accent);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .drawer-head-actions { display: flex; align-items: center; gap: 6px; }
+  .drawer-mini-btn {
+    background: var(--bg); border: 1px solid var(--line); color: var(--ink);
+    border-radius: 6px; padding: 4px 8px; font-size: 0.74rem; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 4px;
+  }
+  .drawer-mini-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .drawer-close {
+    background: none; border: none; font-size: 1.1rem; cursor: pointer;
+    color: var(--ink-soft); padding: 2px 6px;
+  }
+
+  /* منطقة محتوى القائمة المنظمة */
+  .drawer-body {
+    padding: 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  /* منطقة السحب والإفلات للصوتيات */
+  .audio-dropzone {
+    border: 1.5px dashed var(--accent-2);
+    background: rgba(198, 154, 58, 0.08);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: 0.15s all;
+  }
+  .audio-dropzone:hover, .audio-dropzone.dragover {
+    border-color: var(--accent);
+    background: rgba(122, 46, 78, 0.12);
+    color: var(--accent);
+  }
+
+  /* شبكة الصوتيات المتجاورة (2 بجانب بعض) */
+  .tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .track-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+    transition: 0.15s all;
+    position: relative;
+    cursor: pointer;
+  }
+  .track-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .track-card.active {
+    border-color: var(--accent);
+    background: var(--bg-2);
+  }
+  .track-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 4px;
+  }
+  .track-card-icon {
+    font-size: 1.1rem; color: var(--accent);
+  }
+  .track-card-title {
+    font-weight: 700; font-size: 0.82rem; color: var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    flex: 1;
+  }
+  .track-card-badge {
+    font-size: 0.68rem; color: var(--ink-soft);
+  }
+  .track-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2px;
+  }
+  .track-card-play-btn {
+    width: 26px; height: 26px; border-radius: 50%; border: none;
+    background: var(--accent); color: #fff; font-size: 0.72rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.15s transform;
+  }
+  .track-card-play-btn:hover { transform: scale(1.1); }
+  .track-card-settings-btn {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+    color: var(--ink-soft); font-size: 0.72rem; padding: 3px 6px; cursor: pointer;
+    display: flex; align-items: center; gap: 3px;
+  }
+  .track-card-settings-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* شريط التشغيل السفلي المدمج للصوتية التي تعمل */
+  .drawer-bottom-player {
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mini-now-title {
+    font-weight: 700; font-size: 0.8rem; color: var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-align: center;
+  }
+  .mini-seek-bar {
+    width: 100%; height: 4px; -webkit-appearance: none; appearance: none;
+    background: var(--line); border-radius: 3px; outline: none; cursor: pointer;
+  }
+  .mini-seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 11px; height: 11px; border-radius: 50%;
+    background: var(--accent); cursor: pointer;
+  }
+  .mini-controls-row {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .mini-time-text {
+    font-size: 0.68rem; color: var(--ink-soft); font-family: var(--font-cairo);
+  }
+  .mini-btns { display: flex; align-items: center; gap: 8px; }
+  .mini-play-btn {
+    width: 32px; height: 32px; border-radius: 50%; border: none;
+    background: var(--accent); color: #fff; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.15s;
+  }
+  .mini-icon-btn {
+    background: none; border: none; font-size: 0.95rem; color: var(--ink-soft);
+    cursor: pointer; padding: 2px;
+  }
+  .mini-icon-btn.active { color: var(--accent); font-weight: bold; }
+  .mini-vol-slider {
+    width: 60px; height: 3px; -webkit-appearance: none; appearance: none;
+    background: var(--line); border-radius: 2px; outline: none; cursor: pointer;
+  }
+  .mini-vol-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* نافذة إعدادات المقطع الصوتي وشريط النطاق المرئي (Visual Timeline Line) */
+  #trackSettingsModal {
+    position: fixed; inset: 0; background: rgba(18, 15, 12, 0.6); backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center; z-index: 9200;
+  }
+  #trackSettingsModal.open { display: flex; }
+  .track-settings-box {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px; width: min(92vw, 360px); box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+    display: flex; flex-direction: column; gap: 14px; text-align: center;
+  }
+  .track-settings-box h4 {
+    font-family: var(--font-ruqaa); font-size: 1.3rem; color: var(--accent);
+  }
+  .track-name-input {
+    width: 100%; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--bg); color: var(--ink); font-size: 0.86rem; text-align: center; outline: none;
+  }
+
+  /* تصميم شريط النطاق الزمني المرئي (Visual Audio Line) */
+  .visual-timeline-wrap {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 10px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .timeline-label-row {
+    display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--ink-soft);
+  }
+  
+  /* الخط المرئي الزمني */
+  .timeline-bar-container {
+    position: relative; height: 16px; display: flex; align-items: center;
+  }
+  .timeline-full-line {
+    position: absolute; left: 0; right: 0; height: 6px; background: var(--line);
+    border-radius: 4px;
+  }
+  .timeline-active-segment {
+    position: absolute; height: 6px; background: var(--accent);
+    border-radius: 4px; pointer-events: none;
+  }
+  .timeline-range-input {
+    position: absolute; width: 100%; -webkit-appearance: none; appearance: none;
+    background: transparent; pointer-events: none; height: 16px; margin: 0;
+  }
+  .timeline-range-input::-webkit-slider-thumb {
+    -webkit-appearance: none; pointer-events: auto; width: 18px; height: 18px;
+    border-radius: 50%; background: var(--gold); border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3); cursor: ew-resize;
+  }
+
+  .timeline-inputs-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 4px;
+  }
+  .time-adjust-box {
+    display: flex; flex-direction: column; gap: 3px; flex: 1;
+  }
+  .time-adjust-box label { font-size: 0.72rem; color: var(--ink-soft); font-weight: 600; }
+  .time-adjust-controls {
+    display: flex; align-items: center; gap: 4px; justify-content: center;
+  }
+  .time-adjust-controls input {
+    width: 54px; padding: 4px; border: 1px solid var(--line); border-radius: 6px;
+    text-align: center; font-size: 0.8rem; background: var(--surface); color: var(--ink);
+  }
+  .btn-set-now-mini {
+    padding: 3px 6px; font-size: 0.7rem; border-radius: 5px; border: 1px solid var(--line);
+    background: var(--surface); cursor: pointer; color: var(--ink);
+  }
+  .btn-set-now-mini:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ===== نافذة وضع التصوير المجهزة بمقاسات المنصات ===== */
+  #captureModal {
+    position: fixed; inset: 0; z-index: 9000;
+    background: rgba(15, 18, 22, 0.88); backdrop-filter: blur(8px);
+    display: none; flex-direction: column; align-items: center; justify-content: flex-start;
+    overflow-y: auto; padding: 18px 12px 40px;
+  }
+  #captureModal.open { display: flex; }
+
+  .capture-controls {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 25px;
+    padding: 8px 16px; margin-bottom: 18px; display: flex; align-items: center;
+    gap: 10px; flex-wrap: wrap; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    position: sticky; top: 10px; z-index: 9100; justify-content: center;
+  }
+  .capture-controls .cap-btn {
+    padding: 6px 14px; border-radius: 18px; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 5px; border: none;
+    transition: 0.15s transform, 0.15s background;
+  }
+  .cap-btn-save { background: var(--accent); color: #fff; }
+  .cap-btn-save:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .cap-btn-close { background: var(--bg-2); color: var(--ink); }
+  .cap-btn-close:hover { background: var(--line); }
+
+  /* خيارات مقاسات المنصات */
+  .aspect-ratio-selector {
+    display: flex; align-items: center; gap: 4px; background: var(--bg);
+    border: 1px solid var(--line); border-radius: 16px; padding: 2px 4px;
+  }
+  .ratio-btn {
+    background: none; border: none; padding: 4px 9px; font-size: 0.74rem;
+    font-weight: 600; border-radius: 12px; cursor: pointer; color: var(--ink-soft);
+    transition: 0.15s;
+  }
+  .ratio-btn:hover { color: var(--ink); }
+  .ratio-btn.active { background: var(--accent); color: #fff; }
+
+  /* مساحة كارت الصورة ومقاساته */
+  .photo-card-wrap {
+    width: 100%; display: flex; justify-content: center; align-items: center;
+    padding: 10px 0 30px;
+  }
+
+  .photo-card {
+    border-radius: 12px;
+    box-shadow: 0 25px 65px rgba(0,0,0,0.55);
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: all 0.25s ease;
+    overflow: hidden;
+  }
+
+  /* أبعاد المنصات المحددة */
+  .photo-card[data-ratio="story"] {
+    width: 380px; height: 675px; /* نسبة 9:16 ستوري وتيك توك */
+    padding: 50px 32px;
+  }
+  .photo-card[data-ratio="portrait"] {
+    width: 440px; height: 550px; /* نسبة 4:5 بوست إنستغرام عمودي */
+    padding: 45px 36px;
+  }
+  .photo-card[data-ratio="square"] {
+    width: 460px; height: 460px; /* نسبة 1:1 مربع كلاسيكي */
+    padding: 40px 34px;
+  }
+  .photo-card[data-ratio="landscape"] {
+    width: 560px; height: 315px; /* نسبة 16:9 أفقية إكس وفيسبوك */
+    padding: 30px 40px;
+  }
+  .photo-card[data-ratio="auto"] {
+    width: 100%; max-width: 650px; min-height: 480px;
+    padding: 50px 40px;
+  }
+
+  /* ثيمات كروت التصوير */
+  .photo-card[data-card-theme="classic"] { background: #fdfbf7; color: #231d16; border: 1px solid #e5dbca; }
+  .photo-card[data-card-theme="sand"] { background: #f6eedb; color: #332412; border: 1px solid #decba8; }
+  .photo-card[data-card-theme="ivory"] { background: #ffffff; color: #1c1c1c; border: 1px solid #eae5d7; }
+  .photo-card[data-card-theme="linen"] { background: #eee5d3; color: #2e241b; border: 1px solid #d1c2a4; }
+  .photo-card[data-card-theme="sepia"] { background: #f7edd1; color: #382a16; border: 1px solid #d4c08d; }
+  .photo-card[data-card-theme="night"] { background: #13161a; color: #f0ebd9; border: 1px solid #2d333b; }
+
+  .photo-inner-frame {
+    border: 1px solid rgba(198, 154, 58, 0.4);
+    padding: 26px 22px 34px;
+    border-radius: 6px;
+    position: relative;
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .photo-inner-frame::before, .photo-inner-frame::after {
+    content: "❖"; position: absolute; font-size: 0.95rem; color: var(--gold); line-height: 1;
+  }
+  .photo-inner-frame::before { top: -7px; }
+  .photo-inner-frame::after { bottom: -7px; }
+
+  .photo-title {
+    font-family: var(--font-ruqaa); font-size: 1.8rem; margin-bottom: 16px;
+    color: var(--accent); line-height: 1.3;
+  }
+  .photo-card[data-card-theme="night"] .photo-title { color: #e5a4be; }
+
+  .photo-body {
+    font-family: var(--font-amiri); font-size: 1.35rem; line-height: 2.7;
+    white-space: pre-wrap; word-break: break-word; text-align: center;
+    width: 100%; margin: auto 0;
+  }
+
+  .photo-watermark {
+    position: absolute;
+    inset-inline-end: 18px;
+    bottom: 14px;
+    display: flex; align-items: center; gap: 5px;
+    font-family: var(--font-ruqaa);
+    font-size: 1.2rem;
+    color: var(--gold);
+    opacity: 0.85;
+    letter-spacing: 1.5px;
+    direction: rtl;
+  }
+  .photo-watermark .nib { font-size: 0.95rem; }
+
+  /* النوافذ العامة */
   .modal-backdrop {
-    position:fixed; inset:0; background:rgba(20,17,12,0.45);
-    display:flex; align-items:center; justify-content:center; z-index:100;
-    opacity:0; pointer-events:none; transition:opacity .22s ease;
+    position: fixed; inset: 0; background: rgba(18, 15, 12, 0.55); backdrop-filter: blur(3px);
+    display: flex; align-items: center; justify-content: center; z-index: 9500;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
   }
-  .modal-backdrop.open { opacity:1; pointer-events:auto; }
+  .modal-backdrop.open { opacity: 1; pointer-events: auto; }
   .modal-box {
-    background:var(--surface); border-radius:8px; padding:26px 26px 20px;
-    width:min(90vw, 340px); box-shadow:0 20px 50px rgba(0,0,0,0.35);
-    transform:translateY(10px) scale(.97); transition:transform .22s ease;
-    text-align:center;
+    background: var(--surface); border-radius: 14px; padding: 24px 22px;
+    width: min(92vw, 380px); box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    transform: translateY(10px) scale(0.97); transition: transform 0.2s ease;
+    text-align: center; border: 1px solid var(--line);
   }
-  .modal-backdrop.open .modal-box { transform:translateY(0) scale(1); }
-  .modal-box h3 { font-family:'Aref Ruqaa', serif; font-weight:400; font-size:1.2rem; margin:0 0 8px; color:var(--ink); }
-  .modal-box p { font-size:0.85rem; color:var(--ink-soft); line-height:1.9; margin:0 0 18px; }
-  .modal-actions { display:flex; gap:10px; justify-content:center; }
+  .modal-backdrop.open .modal-box { transform: translateY(0) scale(1); }
+  .modal-box h3 { font-family: var(--font-ruqaa); font-size: 1.35rem; margin-bottom: 10px; color: var(--ink); }
+  .modal-box p { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.8; margin-bottom: 18px; }
+  .modal-actions { display: flex; gap: 10px; justify-content: center; }
   .modal-actions button {
-    padding:8px 18px; border-radius:18px; font-size:0.82rem; cursor:pointer;
-    border:1px solid var(--line); background:transparent; color:var(--ink);
+    padding: 8px 18px; border-radius: 20px; font-size: 0.86rem; cursor: pointer;
+    border: 1px solid var(--line); background: transparent; color: var(--ink);
   }
-  .modal-actions .danger { border-color:#a33; background:#a33; color:#fff; }
-  .modal-actions .danger:hover { filter:brightness(1.1); }
-  .modal-actions button:not(.danger):hover { background:var(--bg-2); }
+  .modal-actions .danger { border-color: #c62828; background: #c62828; color: #fff; }
+  .modal-actions .danger:hover { background: #b71c1c; }
+  .modal-actions button:not(.danger):hover { background: var(--bg-2); }
 
-  .sync-status {
-    font-size:0.7rem; color:var(--ink-soft); padding:4px 12px;
-    background:var(--bg); border-radius:12px; border:1px solid var(--line);
+  .settings-form { text-align: start; display: flex; flex-direction: column; gap: 11px; margin-bottom: 18px; }
+  .settings-form label { font-size: 0.8rem; color: var(--ink-soft); font-weight: 600; }
+  .settings-form input {
+    width: 100%; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--bg); color: var(--ink); font-size: 0.86rem; outline: none;
   }
-  .sync-status.syncing { border-color:var(--accent-2); }
+  .settings-form input:focus { border-color: var(--accent); }
 
-  @media (max-width: 620px) {
-    .brand b { font-size:1.05rem; }
-    .search-wrap { max-width:200px; }
-    .book-grid { grid-template-columns:repeat(auto-fill, minmax(130px, 1fr)); gap:20px 14px; }
-    .book-card .spine { height:170px; }
-    .page-surface { padding:34px 6vw; font-size:1.15rem; }
-    .title-field { font-size:1.35rem; }
+  #toastBox {
+    position: fixed; bottom: 20px; inset-inline-start: 50%; transform: translateX(-50%);
+    background: rgba(25, 25, 25, 0.92); color: #fff; padding: 9px 20px;
+    border-radius: 24px; font-size: 0.86rem; z-index: 99999;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.35); pointer-events: none;
+    opacity: 0; transition: opacity 0.22s, transform 0.22s;
+  }
+  #toastBox.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+
+  @keyframes fadeInScale { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+  @keyframes pulse { 0%,100%{opacity:.4;} 50%{opacity:1;} }
+
+  @media (max-width: 650px) {
+    .brand b { font-size: 1.25rem; }
+    .search-wrap { max-width: 140px; }
+    .book-grid { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 18px 14px; }
+    .book-card .spine { height: 175px; }
+    .page-surface { padding: 36px 5vw 60px; font-size: 1.18rem; line-height: 2.5; }
+    .title-field { font-size: 1.55rem; }
+    .photo-card[data-ratio="story"] { width: 92vw; height: calc(92vw * 16 / 9); max-height: 80vh; }
+    .photo-card[data-ratio="portrait"] { width: 92vw; height: calc(92vw * 5 / 4); max-height: 75vh; }
+    .photo-card[data-ratio="square"] { width: 92vw; height: 92vw; max-height: 75vh; }
+    .photo-card[data-ratio="landscape"] { width: 94vw; height: calc(94vw * 9 / 16); }
+    .audio-fab { bottom: 16px; inset-inline-start: 14px; padding: 6px 12px; }
+    .audio-drawer { bottom: 68px; inset-inline-start: 10px; width: calc(100vw - 20px); }
   }
 </style>
 </head>
 <body>
 
+<!-- شاشة الإفلات المباشر لملفات TXT -->
+<div class="dropzone-overlay" id="dropzoneOverlay">
+  <div class="dropzone-box">
+    <div style="font-size:3rem; margin-bottom:8px;">📄 ✒️</div>
+    <h2>أفلت ملف الـ TXT هنا</h2>
+    <p>سيتم تحويله فوراً إلى كتاب جديد بنفس الترتيب والأبيات</p>
+  </div>
+</div>
+
+<!-- مدخل ملفات TXT المخفي -->
+<input type="file" id="txtFileInput" accept=".txt,text/plain" multiple style="display:none;">
+
+<!-- عنصر مشغل الصوت المخفي -->
+<audio id="hibrAudioEngine" preload="auto"></audio>
+<input type="file" id="audioFileInput" accept="audio/*" multiple style="display:none;">
+
 <!-- ===== شاشة تسجيل الدخول ===== -->
 <div id="loginScreen">
-  <div class="logo">📚 مكتبتي السحابية</div>
-  <div class="sub">أدخل كلمة السر للوصول إلى كتبك</div>
-  <input type="password" id="loginPassword" placeholder="كلمة السر" autocomplete="off">
-  <button id="loginBtn">دخول</button>
-  <div id="loginError"></div>
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="nib">✒️</span>
+      <span>حِـبْـر</span>
+    </div>
+    <div class="login-sub">مساحتك الراقية لكتابة الشعر، حفظ الدواوين، ومشاركتها بموسيقاك الشعرية وعلامتك المائية.</div>
+    
+    <div class="login-input-wrap">
+      <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور" autocomplete="current-password">
+      <button type="button" class="toggle-eye" id="togglePasswordBtn" title="إظهار / إخفاء كلمة المرور">👁️</button>
+    </div>
+    
+    <button class="login-btn" id="loginBtn">
+      <span>فتح المحبرة</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <div id="loginError"></div>
+  </div>
 </div>
 
 <!-- ===== التطبيق الرئيسي ===== -->
 <div class="app" id="app" style="display:none;">
 
-  <div class="topbar">
-    <div class="brand" id="brandHome">
-      <span class="mark">م</span>
-      <b>مكتبتي</b>
+  <!-- الشريط العلوي -->
+  <header class="topbar">
+    <div class="brand" id="brandHome" title="الرجوع إلى دواويني">
+      <div class="mark">✒️</div>
+      <b>حِـبْـر</b>
     </div>
+
     <div class="tb-sep"></div>
+
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       <input type="text" id="searchInput" placeholder="ابحث في الكتب والأبيات..." autocomplete="off">
       <div id="searchResults"></div>
     </div>
-    <div class="nav-cluster">
-      <span class="sync-status" id="syncStatus">🔄 جارٍ المزامنة...</span>
-      <div class="theme-switch" role="group">
-        <button class="theme-dot" data-t="day" title="نهاري"></button>
-        <button class="theme-dot" data-t="sepia" title="سيبيا"></button>
-        <button class="theme-dot" data-t="night" title="ليلي"></button>
-      </div>
-      <button class="btn-new" id="btnNewBook">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        كتاب جديد
-      </button>
-      <button class="logout-btn" id="logoutBtn">🚪 خروج</button>
-    </div>
-  </div>
 
-  <div class="view">
-    <div class="screen active" id="screenLibrary">
-      <div class="library-wrap" id="libraryWrap"></div>
+    <div class="nav-cluster">
+      <span class="sync-status" id="syncStatus">
+        <span class="sync-icon">🔄</span>
+        <span class="sync-text">جارٍ المزامنة...</span>
+      </span>
+
+      <!-- قائمة الثيمات البيج المتعددة -->
+      <div class="theme-dropdown-wrap">
+        <button class="theme-btn-select" id="themeDropdownBtn" title="اختر مظهر الورق المفضل">
+          <span class="theme-color-dot" id="currentThemeDot"></span>
+          <span id="currentThemeName">بيج دافئ</span>
+          <span style="font-size:0.65rem;">▼</span>
+        </button>
+        <div class="theme-menu" id="themeMenu">
+          <div class="theme-opt active" data-t="beige-warm"><span class="dot" style="background:#f5f0e4;"></span>بيج دافئ</div>
+          <div class="theme-opt" data-t="beige-sand"><span class="dot" style="background:#eeddbb;"></span>بيج رملي</div>
+          <div class="theme-opt" data-t="beige-ivory"><span class="dot" style="background:#faf7ee;"></span>أبيض عاجي</div>
+          <div class="theme-opt" data-t="beige-linen"><span class="dot" style="background:#e2d7c0;"></span>خيش كتاني</div>
+          <div class="theme-opt" data-t="sepia"><span class="dot" style="background:#e8d9b5;"></span>سيبيا تراثي</div>
+          <div class="theme-opt" data-t="beige-vintage"><span class="dot" style="background:#e7ddc9;"></span>بيج عتيق</div>
+          <div class="theme-opt" data-t="night"><span class="dot" style="background:#111417;"></span>ليلي مذهب</div>
+        </div>
+      </div>
+
+      <button class="btn-import-txt" id="btnImportTxtTop" title="استيراد ملف نصي وتحويله إلى كتاب">
+        <span>📄</span>
+        <span>استيراد TXT</span>
+      </button>
+
+      <button class="btn-new" id="btnNewBook" title="إنشاء ديوان جديد">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        <span>ديوان جديد</span>
+      </button>
+
+      <button class="btn-icon" id="btnSettings" title="إعدادات المزامنة والنسخ">⚙️</button>
+      <button class="btn-icon" id="logoutBtn" title="تسجيل الخروج">خروج</button>
     </div>
-    <div class="screen" id="screenEditor">
+  </header>
+
+  <!-- مساحة العرض الرئيسية -->
+  <main class="view">
+
+    <!-- شاشة الرفوف والمكتبة -->
+    <section class="screen active" id="screenLibrary">
+      <div class="library-wrap">
+        <div class="shelf-header">
+          <h2><span>📚</span> <span>دواوين حِـبْـر</span></h2>
+          <div class="shelf-actions">
+            <span class="shelf-count" id="shelfCount">0 ديوان</span>
+            <button class="btn-import-txt" id="btnImportTxtShelf" title="تحويل ملف نصي إلى كتاب">
+              <span>📥 استيراد ملف TXT</span>
+            </button>
+          </div>
+        </div>
+        <div id="libraryWrap"></div>
+      </div>
+    </section>
+
+    <!-- شاشة المحرر وصفحة الشعر -->
+    <section class="screen" id="screenEditor">
       <div class="editor-wrap">
-        <div class="editor-head">
+
+        <!-- أدوات رأس المحرر -->
+        <div class="editor-top-nav">
           <button class="back-btn" id="btnBack">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-            المكتبة
+            الرجوع للمكتبة
           </button>
-          <input type="text" class="title-field" id="titleField" placeholder="عنوان الكتاب…" maxlength="80">
-          <div class="editor-actions">
+
+          <div class="editor-top-actions">
+            <button class="action-btn capture-btn" id="btnOpenCapture" title="تصوير صفحة الشعر مع العلامة المائية ومشاركتها">
+              <span>📸 تصوير الصفحة</span>
+            </button>
+
             <button class="action-btn" id="btnEdit">✏️ تعديل</button>
-            <button class="action-btn primary" id="btnSave" style="display:none;">💾 حفظ</button>
+            <button class="action-btn primary" id="btnSave" style="display:none;">💾 حفظ التغييرات</button>
           </div>
-          <div class="save-status" id="saveStatus"><span class="dot"></span><span id="saveStatusText">محفوظ</span></div>
+
+          <div class="save-status saved" id="saveStatus">
+            <span class="dot"></span>
+            <span id="saveStatusText">محفوظ</span>
+          </div>
         </div>
 
-        <div class="color-edit-area" id="colorEditArea">
-          <label for="colorPickerInput">لون الغلاف:</label>
-          <input type="color" id="colorPickerInput" value="#7a2e4e">
-          <span class="color-preview" id="colorPreview" style="background:#7a2e4e;"></span>
+        <!-- شريط تنسيق الشعر وضبط المسافات -->
+        <div class="poetry-toolbar" id="poetryToolbar">
+          <div class="tool-group">
+            <button class="tool-btn" id="btnFormatPoetry" title="ضبط المسافات بين الشطرين وتنظيف الفراغات الزائدة تلقائياً">
+              <span>✨ ضبط وتنسيق الشعر</span>
+            </button>
+            <button class="tool-btn" id="btnCleanSpacing" title="إزالة الأسطر الفارغة المزدوجة وتوحيد المسافات">
+              <span>🧹 تنظيف الفراغات</span>
+            </button>
+          </div>
+
+          <div class="tool-group">
+            <select class="tool-select" id="fontSelector" title="نوع الخط">
+              <option value="Amiri">خط أميري (أدبي أصيل)</option>
+              <option value="Aref Ruqaa">خط رقعة (يدوي فني)</option>
+              <option value="Cairo">خط القاهرة (حديث واضح)</option>
+              <option value="Noto Naskh Arabic">خط نسخ (واضح للتشكيل)</option>
+            </select>
+
+            <button class="tool-btn" id="btnIncreaseFontSize" title="تكبير حجم الخط">A+</button>
+            <button class="tool-btn" id="btnDecreaseFontSize" title="تصغير حجم الخط">A-</button>
+
+            <select class="tool-select" id="lineSpacingSelector" title="تباعد الأسطر بين الأبيات">
+              <option value="2.2">تباعد: متقارب</option>
+              <option value="2.7" selected>تباعد: شعري قياسي</option>
+              <option value="3.2">تباعد: فسيح مريح</option>
+            </select>
+
+            <select class="tool-select" id="textAlignSelector" title="محاذاة النص">
+              <option value="center" selected>توسيط الأبيات</option>
+              <option value="right">محاذاة لليمين</option>
+            </select>
+          </div>
         </div>
 
-        <div class="page-surface" id="pageSurface" contenteditable="false" data-placeholder="ابدأ الكتابة هنا…"></div>
+        <!-- رأس الكتاب: العنوان والغلاف -->
+        <div class="book-header-box">
+          <input type="text" class="title-field" id="titleField" placeholder="عنوان القصيدة أو الديوان..." maxlength="90">
+
+          <div class="color-bar" id="colorEditArea">
+            <label for="colorPickerInput">لون الغلاف في المكتبة:</label>
+            <input type="color" id="colorPickerInput" value="#7a2e4e">
+          </div>
+        </div>
+
+        <!-- ورقة الكتاب والعلامة المائية -->
+        <div class="page-container" id="pageContainer">
+          <div class="page-surface" id="pageSurface" contenteditable="false" data-placeholder="اكتب أو الصق أبيات الشعر هنا...&#10;&#10;مثال:&#10;أراكَ عَصِيَّ الدَّمعِ شِيمَتُكَ الصَّبرُ        أَما لِلهَوى نَهيٌ عَلَيكَ وَلا أَمرُ&#10;بَلى أَنا مُشتاقٌ وَعِندِيَ لَوعَةٌ        وَلَكِنَّ مِثلي لا يُذاعُ لَهُ سِرُّ"></div>
+
+          <div class="page-watermark" id="pageWatermark" title="علامة حِـبْـر المائية">
+            <div class="wm-badge">
+              <span class="nib-icon">✒️</span>
+              <span>حِــبْــر</span>
+            </div>
+            <span class="wm-tagline">توثيق شعري</span>
+          </div>
+        </div>
 
         <div class="editor-foot">
-          <span id="wordCount">0 كلمة</span>
+          <div class="foot-counters">
+            <span id="verseCount">0 بيت</span>
+            <span>·</span>
+            <span id="wordCount">0 كلمة</span>
+            <span>·</span>
+            <span id="charCount">0 حرف</span>
+          </div>
           <span id="updatedAt"></span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== المشغل الصوتي المطور والمصغر على اليسار ===== -->
+  <button class="audio-fab" id="audioFab" title="الموسيقى الشعرية (انقر للفتح)">
+    <span class="music-icon">🎻</span>
+    <span class="fab-title" id="fabTrackTitle">موسيقى حِـبْـر</span>
+  </button>
+
+  <div class="audio-drawer" id="audioDrawer">
+    <div class="drawer-head">
+      <h3><span>🎻</span> <span>الموسيقى الشعرية</span></h3>
+      <div class="drawer-head-actions">
+        <button class="drawer-mini-btn" id="btnUploadAudioDrawer" title="رفع ملف صوتي">+ إضافة</button>
+        <button class="drawer-close" id="btnDrawerClose" title="إغلاق">✕</button>
+      </div>
+    </div>
+
+    <!-- منطقة سحب وإفلات الصوتيات داخل المشغل -->
+    <div class="drawer-body" id="audioDrawerBody">
+      <div class="audio-dropzone" id="audioDropzone" title="اسحب ملفات MP3 أو WAV وأفلتها هنا">
+        <span>📂 اسحب وأفلت الصوتيات هنا أو انقر للإضافة</span>
+      </div>
+
+      <!-- شبكة عرض الصوتيات المدمجة والمتجاورة (2 بجانب بعض) -->
+      <div class="tracks-grid" id="tracksGrid">
+        <!-- تظهر بطاقات الصوتيات هنا -->
+      </div>
+    </div>
+
+    <!-- شريط التشغيل السفلي المدمج للصوتية التي تعمل -->
+    <div class="drawer-bottom-player" id="drawerBottomPlayer">
+      <div class="mini-now-title" id="currentTrackTitle">لا يوجد مقطع مختار</div>
+      <input type="range" class="mini-seek-bar" id="audioSeek" min="0" max="100" value="0">
+      <div class="mini-controls-row">
+        <span class="mini-time-text" id="currentTimeDisplay">00:00</span>
+        
+        <div class="mini-btns">
+          <button class="mini-icon-btn" id="btnPrevTrack" title="السابق">⏮</button>
+          <button class="mini-play-btn" id="btnPlayPause" title="تشغيل / إيقاف">▶</button>
+          <button class="mini-icon-btn" id="btnNextTrack" title="التالي">⏭</button>
+          <button class="mini-icon-btn active" id="btnLoopTrack" title="تكرار المقطع ضمن النطاق">🔁</button>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:4px;">
+          <span style="font-size:0.75rem;">🔊</span>
+          <input type="range" class="mini-vol-slider" id="audioVolume" min="0" max="1" step="0.05" value="0.75" title="الصوت">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== نافذة إعدادات المقطع والشريط المرئي (Visual Range Line) ===== -->
+<div id="trackSettingsModal">
+  <div class="track-settings-box">
+    <h4>⚙️ ضبط نطاق المقطع</h4>
+    
+    <div>
+      <input type="text" class="track-name-input" id="modalTrackName" placeholder="اسم المقطع الصوتي">
+    </div>
+
+    <!-- الخط المرئي لتحديد البداية والنهاية -->
+    <div class="visual-timeline-wrap">
+      <div class="timeline-label-row">
+        <span>نطاق العزف المحدد:</span>
+        <span id="timelineRangeDisplay" style="font-weight:700; color:var(--accent);">00:00 - 00:00</span>
+      </div>
+
+      <!-- الشريط المرئي بمؤشر البداية والنهاية -->
+      <div class="timeline-bar-container">
+        <div class="timeline-full-line"></div>
+        <div class="timeline-active-segment" id="timelineActiveSegment"></div>
+        <input type="range" class="timeline-range-input" id="rangeStartSlider" min="0" max="100" value="0">
+        <input type="range" class="timeline-range-input" id="rangeEndSlider" min="0" max="100" value="100">
+      </div>
+
+      <div class="timeline-inputs-row">
+        <div class="time-adjust-box">
+          <label>البداية (ثانية):</label>
+          <div class="time-adjust-controls">
+            <input type="number" id="startSecNum" min="0" value="0">
+            <button class="btn-set-now-mini" id="btnSetStartModal" title="تعيين من اللحظة الحالية">الآن</button>
+          </div>
+        </div>
+
+        <div class="time-adjust-box">
+          <label>التوقف (ثانية):</label>
+          <div class="time-adjust-controls">
+            <input type="number" id="endSecNum" min="0" value="0">
+            <button class="btn-set-now-mini" id="btnSetEndModal" title="تعيين من اللحظة الحالية">الآن</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions" style="margin-top:6px;">
+      <button id="btnDeleteTrackModal" class="danger" style="font-size:0.78rem; padding:6px 12px;">حذف المقطع</button>
+      <button id="btnCancelTrackModal" style="font-size:0.78rem; padding:6px 14px;">إلغاء</button>
+      <button id="btnSaveTrackModal" class="action-btn primary" style="font-size:0.78rem; padding:6px 18px;">حفظ النطاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== نافذة وضع التصوير المجهزة بمقاسات منصات التواصل ===== -->
+<div id="captureModal">
+  <div class="capture-controls">
+    <!-- محدد مقاسات المنصات -->
+    <div class="aspect-ratio-selector" title="اختر مقاس الصورة المناسب لمنصتك">
+      <button class="ratio-btn active" data-ratio="story">ستوري 9:16</button>
+      <button class="ratio-btn" data-ratio="portrait">إنستغرام 4:5</button>
+      <button class="ratio-btn" data-ratio="square">مربع 1:1</button>
+      <button class="ratio-btn" data-ratio="landscape">إكس 16:9</button>
+      <button class="ratio-btn" data-ratio="auto">تلقائي حر</button>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:5px;">
+      <span style="font-size:0.75rem; color:var(--ink-soft);">الورق:</span>
+      <select class="tool-select" id="cardThemeSelect" style="font-size:0.75rem;">
+        <option value="classic">ورق بيج كلاسيكي</option>
+        <option value="sand">بيج رملي دافئ</option>
+        <option value="ivory">أبيض عاجي فاخر</option>
+        <option value="linen">خيش كتاني طبيعي</option>
+        <option value="sepia">سيبيا تراثي</option>
+        <option value="night">ليلي ملكي مذهب</option>
+      </select>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:4px;">
+      <button class="tool-btn" id="btnCapFontMinus" title="تصغير حجم خط القصيدة داخل البطاقة">A-</button>
+      <button class="tool-btn" id="btnCapFontPlus" title="تكبير حجم خط القصيدة داخل البطاقة">A+</button>
+    </div>
+
+    <button class="cap-btn cap-btn-save" id="btnDownloadImage">
+      <span>📥 حفظ الصورة (PNG)</span>
+    </button>
+    <button class="cap-btn" id="btnCopyImage" style="background:var(--bg); color:var(--ink); border:1px solid var(--line);">
+      <span>📋 نسخ</span>
+    </button>
+    <button class="cap-btn cap-btn-close" id="btnCloseCapture">إغلاق</button>
+  </div>
+
+  <!-- الكارت المجهز للتصوير -->
+  <div class="photo-card-wrap">
+    <div class="photo-card" id="photoCard" data-card-theme="classic" data-ratio="story">
+      <div class="photo-inner-frame">
+        <h2 class="photo-title" id="photoTitleDisplay">عنوان القصيدة</h2>
+        <div class="photo-body" id="photoBodyDisplay">الأبيات الشعرية ستظهر هنا...</div>
+        
+        <div class="photo-watermark">
+          <span class="nib">✒️</span>
+          <span>حِــبْــر</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal-backdrop" id="modalBackdrop">
-  <div class="modal-box">
-    <h3>حذف الكتاب</h3>
-    <p id="modalText">هل تريد حذف هذا الكتاب نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.</p>
+<!-- نافذة الإعدادات العامة -->
+<div class="modal-backdrop" id="settingsModal">
+  <div class="modal-box" style="width:min(92vw, 440px);">
+    <h3>إعدادات حِـبْـر والمزامنة</h3>
+    <p>تخصيص المزامنة السحابية مع GitHub وتصدير نسخة احتياطية من دواوينك.</p>
+
+    <div class="settings-form">
+      <div>
+        <label>رمز وصول GitHub (Token):</label>
+        <input type="password" id="cfgToken" autocomplete="off" placeholder="ghp_...">
+      </div>
+      <div>
+        <label>المستودع (Repo: owner/repo):</label>
+        <input type="text" id="cfgRepo" autocomplete="off" placeholder="abomslh/library">
+      </div>
+      <div>
+        <label>مسار الملف (Path):</label>
+        <input type="text" id="cfgPath" autocomplete="off" placeholder="data.json">
+      </div>
+      <div>
+        <label>كلمة مرور الدخول:</label>
+        <input type="text" id="cfgPassword" autocomplete="off" placeholder="كلمة المرور">
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-bottom:18px; justify-content:center; flex-wrap:wrap;">
+      <button class="action-btn" id="btnExportJSON">📤 تصدير نسخة احتياطية (JSON)</button>
+      <label class="action-btn" style="cursor:pointer;">
+        📥 استيراد نسخة
+        <input type="file" id="btnImportJSON" accept=".json" style="display:none;">
+      </label>
+    </div>
+
     <div class="modal-actions">
-      <button id="modalCancel">إلغاء</button>
-      <button class="danger" id="modalConfirm">حذف</button>
+      <button id="btnCancelSettings">إلغاء</button>
+      <button class="action-btn primary" id="btnSaveSettings">حفظ الإعدادات</button>
     </div>
   </div>
 </div>
+
+<!-- نافذة تأكيد الحذف -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal-box">
+    <h3>حذف الديوان</h3>
+    <p id="modalText">هل أنت متأكد من حذف هذا الديوان نهائياً؟ لا يمكن التراجع عن هذا الإجراء.</p>
+    <div class="modal-actions">
+      <button id="modalCancel">إلغاء</button>
+      <button class="danger" id="modalConfirm">نعم، احذف</button>
+    </div>
+  </div>
+</div>
+
+<!-- توست الإشعارات السريعة -->
+<div id="toastBox">تم الحفظ بنجاح</div>
 
 <script>
 (function(){
   "use strict";
 
   // =============================================
-  // إعدادات GitHub API (محدَّثة)
+  // نظام منع ومعالجة الأخطاء الذكي
   // =============================================
-  const GITHUB_TOKEN = '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';
-  const GITHUB_REPO = 'abomslh/library';
-  const GITHUB_PATH = 'data.json';
+  window.addEventListener('error', function(e) {
+    console.warn('نظام حِـبْـر التقط خطأ غير متوقع:', e.message);
+  });
+  window.addEventListener('unhandledrejection', function(e) {
+    console.warn('حِـبْـر التقط خطأ في وعد برمجى:', e.reason);
+  });
 
-  const PASSWORD = '200155';
+  // =============================================
+  // إعدادات التطبيق وتكوين GitHub
+  // =============================================
+  const DEFAULT_CONFIG = {
+    token: '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',
+    repo: 'abomslh/library',
+    path: 'data.json',
+    password: '200155'
+  };
+
+  function getConfig() {
+    try {
+      const saved = localStorage.getItem('hibr_config');
+      if (saved) return Object.assign({}, DEFAULT_CONFIG, JSON.parse(saved));
+    } catch(e){}
+    return Object.assign({}, DEFAULT_CONFIG);
+  }
+
+  function saveConfig(cfg) {
+    try {
+      localStorage.setItem('hibr_config', JSON.stringify(cfg));
+    } catch(e){}
+  }
 
   // =============================================
-  // إدارة جلسة الدخول (sessionStorage)
+  // إدارة الجلسة والدخول
   // =============================================
-  const SESSION_KEY = 'maktabati_logged_in';
+  const SESSION_KEY = 'hibr_logged_in';
 
   function isLoggedIn() {
     return sessionStorage.getItem(SESSION_KEY) === 'true';
   }
 
   function setLoggedIn(value) {
-    if (value) {
-      sessionStorage.setItem(SESSION_KEY, 'true');
-    } else {
-      sessionStorage.removeItem(SESSION_KEY);
-    }
+    if (value) sessionStorage.setItem(SESSION_KEY, 'true');
+    else sessionStorage.removeItem(SESSION_KEY);
   }
 
   // =============================================
-  // دوال مساعدة للترميز base64 مع UTF-8
+  // معالجة ترميز النصوص العربية UTF-8
   // =============================================
   function utf8ToBase64(str) {
-    return btoa(unescape(encodeURIComponent(str)));
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
   }
 
   function base64ToUtf8(base64) {
-    return decodeURIComponent(escape(atob(base64)));
+    const cleanBase64 = base64.replace(/\s/g, '');
+    const binary = atob(cleanBase64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return new TextDecoder().decode(bytes);
   }
 
   // =============================================
-  // دوال GitHub API (مع إصلاح الترميز)
+  // إدارة مزامنة GitHub API
   // =============================================
+  let currentFileSha = null;
+
   async function getFileFromGitHub() {
+    const cfg = getConfig();
+    if (!cfg.token || !cfg.repo || !cfg.path) return null;
+
     try {
-      const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`;
+      const url = `https://api.github.com/repos/${cfg.repo}/contents/${cfg.path}`;
       const res = await fetch(url, {
         headers: {
-          'Authorization': `token ${GITHUB_TOKEN}`,
+          'Authorization': `token ${cfg.token}`,
           'Accept': 'application/vnd.github.v3+json'
-        }
+        },
+        cache: 'no-store'
       });
+
       if (!res.ok) {
-        if (res.status === 404) {
-          // الملف غير موجود، نرجع محتوى فارغاً
-          return { content: '[]', sha: null };
-        }
-        throw new Error(`GitHub API error: ${res.status}`);
+        if (res.status === 404) return { content: '[]', sha: null };
+        throw new Error(`خطأ في استجابة GitHub: ${res.status}`);
       }
+
       const data = await res.json();
-      // فك الترميز باستخدام دالة base64ToUtf8
+      currentFileSha = data.sha;
       const content = base64ToUtf8(data.content);
       return { content, sha: data.sha };
     } catch (e) {
-      console.error('فشل جلب البيانات من GitHub:', e);
+      console.warn('تنبيه: تعذر الاتصال بـ GitHub، الاعتماد على التخزين المحلي:', e.message);
       return null;
     }
   }
 
   async function saveFileToGitHub(content, sha) {
+    const cfg = getConfig();
+    if (!cfg.token || !cfg.repo || !cfg.path) return null;
+
     try {
-      const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`;
+      const url = `https://api.github.com/repos/${cfg.repo}/contents/${cfg.path}`;
       const payload = {
-        message: 'تحديث البيانات من تطبيق المكتبة',
+        message: 'تحديث دواوين حِـبْـر السحابية',
         content: utf8ToBase64(content),
-        sha: sha || undefined
+        sha: sha || currentFileSha || undefined
       };
+
       const res = await fetch(url, {
         method: 'PUT',
         headers: {
-          'Authorization': `token ${GITHUB_TOKEN}`,
+          'Authorization': `token ${cfg.token}`,
           'Accept': 'application/vnd.github.v3+json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload)
       });
-      if (!res.ok) throw new Error(`GitHub save error: ${res.status}`);
+
+      if (!res.ok) {
+        if (res.status === 409) {
+          const fresh = await getFileFromGitHub();
+          if (fresh) {
+            payload.sha = fresh.sha;
+            const retryRes = await fetch(url, {
+              method: 'PUT',
+              headers: {
+                'Authorization': `token ${cfg.token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+            });
+            if (retryRes.ok) {
+              const retryData = await retryRes.json();
+              currentFileSha = retryData.content.sha;
+              return currentFileSha;
+            }
+          }
+        }
+        throw new Error(`فشل الحفظ في GitHub: ${res.status}`);
+      }
+
       const data = await res.json();
-      return data.content.sha;
+      currentFileSha = data.content.sha;
+      return currentFileSha;
     } catch (e) {
-      console.error('فشل حفظ البيانات إلى GitHub:', e);
+      console.warn('تعذر الحفظ في GitHub:', e.message);
       return null;
     }
   }
 
   // =============================================
-  // دوال المزامنة
+  // إدارة البيانات المحلية والمزامنة
   // =============================================
-  var books = [];
-  var isSyncing = false;
+  let books = [];
+  let isSyncing = false;
+  let autoSaveTimeout = null;
+
+  function loadBooksFromLocal() {
+    try {
+      const raw = localStorage.getItem('hibr_books_backup') || localStorage.getItem('maktabati_books_backup');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          books = parsed;
+          return true;
+        }
+      }
+    } catch(e) { console.error(e); }
+    books = [];
+    return false;
+  }
+
+  function saveBooksToLocal() {
+    try {
+      localStorage.setItem('hibr_books_backup', JSON.stringify(books));
+    } catch(e) { console.error(e); }
+  }
 
   async function syncFromGitHub() {
     if (isSyncing) return;
     isSyncing = true;
     updateSyncStatus('جارٍ التحميل...', true);
+
     try {
       const result = await getFileFromGitHub();
       if (result) {
@@ -504,19 +1698,19 @@
         try { parsed = JSON.parse(result.content); } catch(e) { parsed = []; }
         if (Array.isArray(parsed)) {
           books = parsed;
-          books.forEach(b => { if (!b.tracks) b.tracks = []; });
+          saveBooksToLocal();
           renderLibrary(document.getElementById('searchInput').value || '');
-          updateSyncStatus('تم التحميل ✅', false);
+          updateSyncStatus('سحابي متصل ✅', false);
           return;
         }
       }
-      // إذا فشل التحميل نستخدم البيانات المحلية
       loadBooksFromLocal();
-      updateSyncStatus('تم التحميل (محلياً)', false);
+      renderLibrary(document.getElementById('searchInput').value || '');
+      updateSyncStatus('محلي آمن 💾', false);
     } catch(e) {
-      console.error(e);
       loadBooksFromLocal();
-      updateSyncStatus('خطأ في التحميل', false);
+      renderLibrary(document.getElementById('searchInput').value || '');
+      updateSyncStatus('محلي آمن 💾', false);
     } finally {
       isSyncing = false;
     }
@@ -525,20 +1719,19 @@
   async function syncToGitHub() {
     if (isSyncing) return;
     isSyncing = true;
-    updateSyncStatus('جاري الحفظ...', true);
+    updateSyncStatus('جارٍ الحفظ...', true);
+
     try {
-      const result = await getFileFromGitHub();
       const content = JSON.stringify(books, null, 2);
-      const sha = result ? result.sha : null;
+      const sha = currentFileSha;
       const newSha = await saveFileToGitHub(content, sha);
       if (newSha) {
-        updateSyncStatus('تم الحفظ ✅', false);
+        updateSyncStatus('تم الحفظ سحابياً ✅', false);
       } else {
-        updateSyncStatus('فشل الحفظ ❌', false);
+        updateSyncStatus('محفوظ محلياً 💾', false);
       }
     } catch(e) {
-      console.error(e);
-      updateSyncStatus('فشل الحفظ ❌', false);
+      updateSyncStatus('محفوظ محلياً 💾', false);
     } finally {
       isSyncing = false;
     }
@@ -547,47 +1740,34 @@
   function updateSyncStatus(text, isActive) {
     const el = document.getElementById('syncStatus');
     if (el) {
-      el.textContent = text;
+      const textEl = el.querySelector('.sync-text');
+      const iconEl = el.querySelector('.sync-icon');
+      if (textEl) textEl.textContent = text;
       el.classList.toggle('syncing', isActive);
+      if (iconEl) iconEl.textContent = isActive ? '🔄' : (text.includes('✅') ? '☁️' : '💾');
     }
   }
 
-  // =============================================
-  // التخزين المحلي (احتياطي)
-  // =============================================
-  function loadBooksFromLocal() {
-    try {
-      const raw = localStorage.getItem('maktabati_books_backup');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          books = parsed;
-          books.forEach(b => { if (!b.tracks) b.tracks = []; });
-        }
-      }
-    } catch(e) { books = []; }
+  function showToast(msg) {
+    const t = document.getElementById('toastBox');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
   }
 
-  function saveBooksToLocal() {
-    try {
-      localStorage.setItem('maktabati_books_backup', JSON.stringify(books));
-    } catch(e) {}
+  let currentId = null;
+  let pendingDeleteId = null;
+  let isEditing = false;
+
+  function uid() {
+    return "hibr_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 8);
   }
-
-  // =============================================
-  // دوال إدارة الكتب (داخلية - نفس الكود السابق)
-  // =============================================
-  var currentId = null;
-  var pendingDeleteId = null;
-  var isEditing = false;
-  var highlightTerm = null;
-
-  function uid() { return "b_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2,8); }
 
   function formatDate(ts) {
-    var d = new Date(ts);
-    var months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
-    return d.getDate() + " " + months[d.getMonth()] + " " + d.getFullYear();
+    const d = new Date(ts);
+    const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
   }
 
   function escapeHtml(s) {
@@ -601,94 +1781,311 @@
   }
 
   function darken(hex, amount) {
-    var r = parseInt(hex.slice(1,3), 16);
-    var g = parseInt(hex.slice(3,5), 16);
-    var b = parseInt(hex.slice(5,7), 16);
-    r = Math.floor(r * (1 - amount));
-    g = Math.floor(g * (1 - amount));
-    b = Math.floor(b * (1 - amount));
-    return "#" + [r,g,b].map(function(c){ return c.toString(16).padStart(2,'0'); }).join('');
+    const r = Math.floor(parseInt(hex.slice(1,3), 16) * (1 - amount));
+    const g = Math.floor(parseInt(hex.slice(3,5), 16) * (1 - amount));
+    const b = Math.floor(parseInt(hex.slice(5,7), 16) * (1 - amount));
+    return "#" + [r,g,b].map(c => Math.max(0, c).toString(16).padStart(2,'0')).join('');
   }
 
   function findBook(id) {
-    for (var i = 0; i < books.length; i++) {
-      if (books[i].id === id) return books[i];
-    }
-    return null;
+    return books.find(b => b.id === id) || null;
   }
 
   // =============================================
-  // عرض المكتبة والمحرر (نفس الكود السابق مع بعض التعديلات)
+  // استيراد ملفات TXT وتحويلها لكتب
+  // =============================================
+  async function importTxtFiles(fileList) {
+    if (!fileList || fileList.length === 0) return;
+    let importedCount = 0;
+    let lastBookId = null;
+
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList[i];
+      try {
+        const buffer = await file.arrayBuffer();
+        let text = "";
+
+        try {
+          text = new TextDecoder('utf-8', { fatal: true }).decode(buffer);
+        } catch (e) {
+          try {
+            text = new TextDecoder('windows-1256').decode(buffer);
+          } catch(e2) {
+            text = new TextDecoder('utf-8').decode(buffer);
+          }
+        }
+
+        text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        let title = file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " ").trim();
+        const lines = text.split('\n');
+        if (!title && lines.length > 0 && lines[0].trim().length > 0) {
+          title = lines[0].trim();
+        }
+
+        const newBook = {
+          id: uid(),
+          title: title || "ديوان جديد",
+          color: "#7a2e4e",
+          text: text,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+          fontFamily: 'Amiri',
+          lineHeight: '2.7',
+          textAlign: 'center'
+        };
+
+        books.unshift(newBook);
+        lastBookId = newBook.id;
+        importedCount++;
+      } catch(err) {
+        console.error('فشل استيراد الملف:', file.name, err);
+      }
+    }
+
+    if (importedCount > 0) {
+      saveBooksToLocal();
+      syncToGitHub();
+      renderLibrary("");
+      showToast(`✅ تم استيراد ${importedCount} كتاب بنجاح وبنفس الترتيب`);
+
+      if (importedCount === 1 && lastBookId) {
+        openBook(lastBookId, false);
+      }
+    }
+  }
+
+  function initDragAndDrop() {
+    const dropOverlay = document.getElementById('dropzoneOverlay');
+    let dragCounter = 0;
+
+    window.addEventListener('dragenter', e => {
+      e.preventDefault();
+      dragCounter++;
+      if (e.dataTransfer.types && e.dataTransfer.types.includes('Files')) {
+        // فحص إذا كان السحب داخل درج الصوتيات
+        if (e.target.closest('#audioDrawer') || e.target.closest('#audioFab')) {
+          return;
+        }
+        dropOverlay.classList.add('active');
+      }
+    });
+
+    window.addEventListener('dragleave', e => {
+      e.preventDefault();
+      dragCounter--;
+      if (dragCounter <= 0) {
+        dropOverlay.classList.remove('active');
+        dragCounter = 0;
+      }
+    });
+
+    window.addEventListener('dragover', e => { e.preventDefault(); });
+
+    window.addEventListener('drop', e => {
+      e.preventDefault();
+      dragCounter = 0;
+      dropOverlay.classList.remove('active');
+
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        // إذا كان الإفلات داخل مشغل الصوتيات
+        if (e.target.closest('#audioDrawer') || e.target.closest('#audioFab')) {
+          handleAudioDrop(e.dataTransfer.files);
+          return;
+        }
+
+        const txtFiles = Array.from(e.dataTransfer.files).filter(f => f.name.endsWith('.txt') || f.type.includes('text'));
+        if (txtFiles.length > 0) {
+          importTxtFiles(txtFiles);
+        } else {
+          const audioFiles = Array.from(e.dataTransfer.files).filter(f => f.type.includes('audio'));
+          if (audioFiles.length > 0) {
+            handleAudioDrop(audioFiles);
+          } else {
+            showToast('⚠️ يرجى إفلات ملفات نصية .txt أو صوتية');
+          }
+        }
+      }
+    });
+  }
+
+  // =============================================
+  // معالجة لصق النصوص وضبط المسافات
+  // =============================================
+  function handlePasteCleanly(e) {
+    e.preventDefault();
+    const clipboardData = e.clipboardData || window.clipboardData;
+    let text = clipboardData.getData('text/plain') || '';
+
+    text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    selection.deleteFromDocument();
+    const range = selection.getRangeAt(0);
+    const textNode = document.createTextNode(text);
+    range.insertNode(textNode);
+
+    range.setStartAfter(textNode);
+    range.setEndAfter(textNode);
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    updateCounters();
+    triggerAutoSave();
+  }
+
+  function formatPoetrySpacing() {
+    const surface = document.getElementById('pageSurface');
+    let text = surface.innerText || "";
+    if (!text.trim()) return;
+
+    const lines = text.split('\n');
+    const formattedLines = lines.map(line => {
+      let trimmed = line.trim();
+      if (!trimmed) return "";
+
+      if (/(\S+)\s{3,}(\S+)/.test(trimmed)) {
+        trimmed = trimmed.replace(/\s{3,}/g, '        ');
+      } else if (/(\S+)\s*(\.{3,}|\*{3,}|\-{3,})\s*(\S+)/.test(trimmed)) {
+        trimmed = trimmed.replace(/\s*(\.{3,}|\*{3,}|\-{3,})\s*/g, '   ...   ');
+      }
+      return trimmed;
+    });
+
+    let result = formattedLines.join('\n');
+    result = result.replace(/\n{3,}/g, '\n\n');
+
+    surface.innerText = result;
+    updateCounters();
+    triggerAutoSave();
+    showToast('✨ تم ضبط وتنسيق مسافات الأبيات');
+  }
+
+  function cleanEmptySpacing() {
+    const surface = document.getElementById('pageSurface');
+    let text = surface.innerText || "";
+    if (!text.trim()) return;
+
+    text = text.replace(/[ \t]{2,}/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+    surface.innerText = text;
+    updateCounters();
+    triggerAutoSave();
+    showToast('🧹 تم تنظيف الفراغات الزائدة');
+  }
+
+  function updateCounters() {
+    const surface = document.getElementById('pageSurface');
+    const rawText = surface.innerText || "";
+    const cleanText = rawText.trim();
+
+    const words = cleanText ? cleanText.split(/\s+/).filter(Boolean).length : 0;
+    document.getElementById('wordCount').textContent = `${words} كلمة`;
+
+    const chars = cleanText ? cleanText.replace(/\s/g, '').length : 0;
+    document.getElementById('charCount').textContent = `${chars} حرف`;
+
+    const lines = cleanText ? cleanText.split('\n').filter(l => l.trim().length > 0).length : 0;
+    document.getElementById('verseCount').textContent = `${lines} بيت/سطر`;
+  }
+
+  function triggerAutoSave() {
+    setSavedState(false);
+    clearTimeout(autoSaveTimeout);
+    autoSaveTimeout = setTimeout(() => {
+      if (currentId) doSave(false);
+    }, 1200);
+  }
+
+  function setSavedState(isSaved) {
+    const st = document.getElementById('saveStatus');
+    const txt = document.getElementById('saveStatusText');
+    st.classList.toggle('unsaved', !isSaved);
+    st.classList.toggle('saved', isSaved);
+    txt.textContent = isSaved ? "محفوظ" : "غير محفوظ";
+  }
+
+  // =============================================
+  // عرض المكتبة
   // =============================================
   function renderLibrary(filter) {
     filter = (filter || "").trim().toLowerCase();
-    var list = books.slice().sort(function(a,b){ return b.updatedAt - a.updatedAt; });
+    let list = books.slice().sort((a,b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+
     if (filter) {
-      list = list.filter(function(b) {
-        return removeDiacritics(b.title || "").toLowerCase().indexOf(filter) !== -1;
-      });
+      list = list.filter(b => removeDiacritics(b.title || "").toLowerCase().includes(filter));
     }
 
-    var wrap = document.getElementById('libraryWrap');
+    const wrap = document.getElementById('libraryWrap');
     wrap.innerHTML = "";
 
+    document.getElementById('shelfCount').textContent = `${books.length} ديوان${books.length !== 1 ? 'اً' : ''}`;
+
     if (books.length === 0) {
-      var empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.innerHTML =
-        '<div class="glyph">؟</div>' +
-        '<h2>مكتبتك فارغة الآن</h2>' +
-        '<p>أنشئ كتابك الأول، اختر له اسمًا ولونًا، واكتب نصك بحرية — سيُحفظ تلقائياً على GitHub.</p>' +
-        '<button class="btn-new" id="emptyNewBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>ابدأ كتابًا جديدًا</button>';
-      wrap.appendChild(empty);
-      document.getElementById("emptyNewBtn").addEventListener("click", createNewBook);
+      wrap.innerHTML = `
+        <div class="empty-state">
+          <div class="glyph">✒️</div>
+          <h2>المحبرة فارغة الآن</h2>
+          <p>أنشئ ديوانك الأول، أو اسحب وأفلت ملف <b>TXT</b> ليتحول لكتاب فوراً، واجعل علامة <b>حِـبْـر</b> تخلّد كلماتك.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+            <button class="btn-new" id="emptyNewBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              ابدأ ديواناً جديداً
+            </button>
+            <button class="btn-import-txt" id="emptyImportBtn">
+              <span>📄</span>
+              استيراد ملف TXT
+            </button>
+          </div>
+        </div>
+      `;
+      document.getElementById('emptyNewBtn').addEventListener('click', createNewBook);
+      document.getElementById('emptyImportBtn').addEventListener('click', () => {
+        document.getElementById('txtFileInput').click();
+      });
       return;
     }
-
-    var label = document.createElement("div");
-    label.className = "shelf-label";
-    label.innerHTML = "<b>رفّي</b><span>" + books.length + " كتاب" + (books.length > 1 ? "ًا" : "") + "</span>";
-    wrap.appendChild(label);
 
     if (list.length === 0 && filter) {
-      var noRes = document.createElement("p");
-      noRes.style.cssText = "color:var(--ink-soft);font-size:0.9rem;";
-      noRes.textContent = "لا توجد كتب تطابق البحث.";
-      wrap.appendChild(noRes);
+      wrap.innerHTML = `<p style="color:var(--ink-soft); font-size:1rem; text-align:center; padding:40px;">لا توجد دواوين تطابق: "${escapeHtml(filter)}"</p>`;
       return;
     }
 
-    var grid = document.createElement("div");
-    grid.className = "book-grid";
+    const grid = document.createElement('div');
+    grid.className = 'book-grid';
 
-    list.forEach(function(book, idx) {
-      var color = book.color || "#7a2e4e";
-      var card = document.createElement("div");
-      card.className = "book-card";
-      card.style.animationDelay = (idx * 0.03) + "s";
+    list.forEach(book => {
+      const color = book.color || "#7a2e4e";
+      const card = document.createElement('div');
+      card.className = 'book-card';
 
-      var words = (book.text || "").trim();
-      var wc = words ? words.split(/\s+/).length : 0;
+      const words = (book.text || "").trim();
+      const wc = words ? words.split(/\s+/).filter(Boolean).length : 0;
+      const lines = words ? words.split('\n').filter(l => l.trim()).length : 0;
 
-      card.innerHTML =
-        '<div class="spine" style="background:linear-gradient(160deg,' + color + ',' + darken(color, 0.3) + ')">' +
-          '<div class="card-actions">' +
-            '<button class="delBtn" title="حذف"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14"/></svg></button>' +
-          '</div>' +
-          '<span class="spine-glyph">﴾</span>' +
-          '<span class="spine-title">' + escapeHtml(book.title || "بلا عنوان") + '</span>' +
-          '<span class="spine-glyph">﴿</span>' +
-        '</div>' +
-        '<div class="meta">' +
-          '<div class="t">' + escapeHtml(book.title || "بلا عنوان") + '</div>' +
-          '<div class="d">' + wc + ' كلمة · ' + formatDate(book.updatedAt) + '</div>' +
-        '</div>';
+      card.innerHTML = `
+        <div class="spine" style="background:linear-gradient(160deg, ${color}, ${darken(color, 0.35)})">
+          <div class="card-actions">
+            <button class="delBtn" title="حذف الديوان">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14"/></svg>
+            </button>
+          </div>
+          <span class="spine-glyph">﴾</span>
+          <span class="spine-title">${escapeHtml(book.title || "بلا عنوان")}</span>
+          <span class="spine-glyph">﴿</span>
+        </div>
+        <div class="meta">
+          <div class="t">${escapeHtml(book.title || "بلا عنوان")}</div>
+          <div class="d">${lines} بيت · ${wc} كلمة · ${formatDate(book.updatedAt || Date.now())}</div>
+        </div>
+      `;
 
-      card.addEventListener("click", function(e) {
-        if (e.target.closest(".delBtn")) return;
-        openBook(book.id, null);
+      card.addEventListener('click', e => {
+        if (e.target.closest('.delBtn')) return;
+        openBook(book.id, false);
       });
-      card.querySelector(".delBtn").addEventListener("click", function(e) {
+
+      card.querySelector('.delBtn').addEventListener('click', e => {
         e.stopPropagation();
         askDelete(book.id);
       });
@@ -699,43 +2096,65 @@
     wrap.appendChild(grid);
   }
 
-  function openBook(id, highlight) {
-    var book = findBook(id);
+  // =============================================
+  // فتح الكتاب والتحرير
+  // =============================================
+  function openBook(id, startInEditMode = false) {
+    const book = findBook(id);
     if (!book) return;
     currentId = id;
 
-    isEditing = false;
-    document.getElementById('pageSurface').contentEditable = "false";
-    document.getElementById('btnEdit').style.display = "inline-block";
-    document.getElementById('btnSave').style.display = "none";
-    document.getElementById('colorEditArea').classList.remove("visible");
+    const surface = document.getElementById('pageSurface');
+    const titleField = document.getElementById('titleField');
+    const colorPicker = document.getElementById('colorPickerInput');
 
-    document.getElementById('titleField').value = book.title || "";
-    var surface = document.getElementById('pageSurface');
-    surface.textContent = book.text || "";
-    clearHighlights();
-    if (highlight) {
-      highlightTerm = highlight;
-      highlightText(highlight);
-    } else {
-      highlightTerm = null;
+    titleField.value = book.title || "";
+    surface.innerText = book.text || "";
+
+    if (book.fontFamily) {
+      document.getElementById('fontSelector').value = book.fontFamily;
+      surface.style.fontFamily = book.fontFamily;
     }
-    updateWordCount();
-    document.getElementById('updatedAt').textContent = "آخر تحديث: " + formatDate(book.updatedAt);
-    setSaved(true);
+    if (book.fontSize) {
+      surface.style.fontSize = book.fontSize + 'rem';
+    }
+    if (book.lineHeight) {
+      document.getElementById('lineSpacingSelector').value = book.lineHeight;
+      surface.style.lineHeight = book.lineHeight;
+    }
+    if (book.textAlign) {
+      document.getElementById('textAlignSelector').value = book.textAlign;
+      surface.style.textAlign = book.textAlign;
+    }
 
-    var color = book.color || "#7a2e4e";
-    document.getElementById('colorPickerInput').value = color;
-    document.getElementById('colorPreview').style.background = color;
+    const color = book.color || "#7a2e4e";
+    colorPicker.value = color;
 
+    updateCounters();
+    document.getElementById('updatedAt').textContent = `آخر تحديث: ${formatDate(book.updatedAt || Date.now())}`;
+    setSavedState(true);
+
+    setEditMode(startInEditMode);
     showScreen("editor");
-    setTimeout(function() {
-      if (!book.title) document.getElementById('titleField').focus();
-    }, 320);
+  }
+
+  function setEditMode(editing) {
+    isEditing = editing;
+    const surface = document.getElementById('pageSurface');
+    const btnEdit = document.getElementById('btnEdit');
+    const btnSave = document.getElementById('btnSave');
+    const colorArea = document.getElementById('colorEditArea');
+
+    surface.contentEditable = editing ? "true" : "false";
+    btnEdit.style.display = editing ? "none" : "inline-flex";
+    btnSave.style.display = editing ? "inline-flex" : "none";
+    colorArea.classList.toggle('visible', editing);
+
+    if (editing) surface.focus();
   }
 
   function createNewBook() {
-    var book = {
+    const newBook = {
       id: uid(),
       title: "",
       color: "#7a2e4e",
@@ -743,61 +2162,39 @@
       createdAt: Date.now(),
       updatedAt: Date.now()
     };
-    books.unshift(book);
+    books.unshift(newBook);
     saveBooksToLocal();
     syncToGitHub();
-    openBook(book.id, null);
+    openBook(newBook.id, true);
+    setTimeout(() => {
+      document.getElementById('titleField').focus();
+    }, 200);
   }
 
-  function updateWordCount() {
-    var text = document.getElementById('pageSurface').textContent.trim();
-    var n = text ? text.split(/\s+/).length : 0;
-    document.getElementById('wordCount').textContent = n + " كلمة";
-  }
-
-  function setSaved(isSaved) {
-    var st = document.getElementById('saveStatus');
-    st.classList.toggle('saving', !isSaved);
-    document.getElementById('saveStatusText').textContent = isSaved ? "محفوظ" : "غير محفوظ";
-  }
-
-  function clearHighlights() {
-    var surface = document.getElementById('pageSurface');
-    var html = surface.innerHTML;
-    html = html.replace(/<mark[^>]*>|<\/mark>/g, '');
-    surface.innerHTML = html;
-  }
-
-  function highlightText(query) {
-    if (!query) return;
-    var surface = document.getElementById('pageSurface');
-    var text = surface.textContent;
-    var normalizedText = removeDiacritics(text);
-    var normalizedQuery = removeDiacritics(query);
-    var index = normalizedText.toLowerCase().indexOf(normalizedQuery.toLowerCase());
-    if (index === -1) return;
-    var before = text.substring(0, index);
-    var match = text.substring(index, index + query.length);
-    var after = text.substring(index + query.length);
-    surface.innerHTML = escapeHtml(before) + '<mark class="search-highlight">' + escapeHtml(match) + '</mark>' + escapeHtml(after);
-  }
-
-  function doSave() {
-    var book = findBook(currentId);
+  function doSave(showNotice = true) {
+    const book = findBook(currentId);
     if (!book) return;
+
     book.title = document.getElementById('titleField').value.trim();
-    book.text = document.getElementById('pageSurface').textContent;
-    book.updatedAt = Date.now();
+    book.text = document.getElementById('pageSurface').innerText;
     book.color = document.getElementById('colorPickerInput').value;
+    book.fontFamily = document.getElementById('fontSelector').value;
+    book.lineHeight = document.getElementById('lineSpacingSelector').value;
+    book.textAlign = document.getElementById('textAlignSelector').value;
+    book.updatedAt = Date.now();
+
     saveBooksToLocal();
     syncToGitHub();
-    document.getElementById('updatedAt').textContent = "آخر تحديث: " + formatDate(book.updatedAt);
-    setSaved(true);
+
+    document.getElementById('updatedAt').textContent = `آخر تحديث: ${formatDate(book.updatedAt)}`;
+    setSavedState(true);
+
+    if (showNotice) showToast('💾 تم حفظ التغييرات بنجاح');
   }
 
   function showScreen(name) {
-    var lib = document.getElementById('screenLibrary');
-    var ed = document.getElementById('screenEditor');
+    const lib = document.getElementById('screenLibrary');
+    const ed = document.getElementById('screenEditor');
     if (name === "library") {
       renderLibrary(document.getElementById('searchInput').value);
       ed.classList.remove('active');
@@ -810,124 +2207,695 @@
 
   function askDelete(id) {
     pendingDeleteId = id;
-    var book = findBook(id);
-    document.getElementById('modalText').textContent = 'هل تريد حذف كتاب "' + (book ? (book.title || "بلا عنوان") : "") + '" نهائيًا؟ لا يمكن التراجع عن هذا الإجراء.';
-    document.getElementById('modalBackdrop').classList.add("open");
+    const book = findBook(id);
+    document.getElementById('modalText').textContent = `هل تريد بالتأكيد حذف ديوان "${(book ? (book.title || "بلا عنوان") : "")}" نهائياً؟`;
+    document.getElementById('modalBackdrop').classList.add('open');
   }
 
   function goBackToLibrary() {
-    if (currentId && isEditing) {
-      if (confirm("لديك تغييرات غير محفوظة. هل تريد الحفظ قبل الخروج؟")) {
-        doSave();
-        isEditing = false;
-        document.getElementById('pageSurface').contentEditable = "false";
-        document.getElementById('btnEdit').style.display = "inline-block";
-        document.getElementById('btnSave').style.display = "none";
-        document.getElementById('colorEditArea').classList.remove("visible");
-      }
-    } else if (currentId) {
-      doSave();
-    }
+    if (currentId) doSave(false);
     currentId = null;
-    highlightTerm = null;
+    isEditing = false;
     document.getElementById('searchInput').value = "";
     document.getElementById('searchResults').style.display = "none";
     showScreen("library");
   }
 
-  // ===== البحث =====
+  // =============================================
+  // وضع التصوير بمقاسات المنصات (Social Media Aspect Ratios)
+  // =============================================
+  let currentCapFontSizeRem = 1.35;
+
+  function openCaptureModal() {
+    const book = findBook(currentId);
+    const title = document.getElementById('titleField').value.trim() || (book ? book.title : "") || "قصيدة بلا عنوان";
+    const text = document.getElementById('pageSurface').innerText || "";
+
+    if (!text.trim()) {
+      alert("الرجاء كتابة أو إضافة بعض الأبيات الشعرية قبل التصوير.");
+      return;
+    }
+
+    document.getElementById('photoTitleDisplay').textContent = title;
+    document.getElementById('photoBodyDisplay').innerText = text;
+
+    const fontVal = document.getElementById('fontSelector').value;
+    document.getElementById('photoBodyDisplay').style.fontFamily = fontVal;
+
+    document.getElementById('captureModal').classList.add('open');
+  }
+
+  function closeCaptureModal() {
+    document.getElementById('captureModal').classList.remove('open');
+  }
+
+  async function downloadPoemImage() {
+    const card = document.getElementById('photoCard');
+    if (!card || typeof html2canvas === 'undefined') {
+      alert("يرجى التقاط لقطة شاشة للشاشة المفتوحة مباشرةً.");
+      return;
+    }
+
+    showToast('📸 جارٍ توليد الصورة بدقة فائقة...');
+
+    try {
+      const canvas = await html2canvas(card, {
+        scale: 3, // دقة عالية جداً لمنصات النشر
+        useCORS: true,
+        backgroundColor: null,
+        logging: false
+      });
+
+      const title = (document.getElementById('photoTitleDisplay').textContent || "شعر_حبر").replace(/\s+/g, '_');
+      const link = document.createElement('a');
+      link.download = `حِبر_${title}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast('✅ تم تحميل الصورة بنجاح');
+    } catch(err) {
+      console.error('فشل تحويل الصورة:', err);
+      alert('تعذر إنشاء ملف الصورة آلياً، يمكنك أخذ لقطة شاشة مباشرة.');
+    }
+  }
+
+  async function copyPoemImage() {
+    const card = document.getElementById('photoCard');
+    if (!card || typeof html2canvas === 'undefined') return;
+
+    try {
+      showToast('📋 جارٍ نسخ الصورة إلى الحافظة...');
+      const canvas = await html2canvas(card, { scale: 2.5, useCORS: true, logging: false });
+      canvas.toBlob(async blob => {
+        try {
+          if (navigator.clipboard && navigator.clipboard.write) {
+            await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+            showToast('✅ تم نسخ الصورة للحافظة! جاهزة للصق في أي مكان');
+          } else {
+            downloadPoemImage();
+          }
+        } catch(e) { downloadPoemImage(); }
+      }, 'image/png');
+    } catch(e) { downloadPoemImage(); }
+  }
+
+  // =============================================
+  // مشغل الموسيقى المطور وشبكة الصوتيات والإعدادات
+  // =============================================
+  const DB_NAME = 'HibrAudioDB';
+  const DB_VERSION = 1;
+  let audioDB = null;
+  let tracks = [];
+  let currentTrack = null;
+  let isPlayingAudio = false;
+  let loopSegment = true;
+  let audioObjectUrl = null;
+  let editingTrack = null;
+
+  const audioEngine = document.getElementById('hibrAudioEngine');
+
+  function openAudioDB() {
+    return new Promise((resolve) => {
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onupgradeneeded = function(e) {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('tracks')) {
+          db.createObjectStore('tracks', { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = function(e) {
+        audioDB = e.target.result;
+        resolve(audioDB);
+      };
+      req.onerror = function() { resolve(null); };
+    });
+  }
+
+  async function loadTracksFromDB() {
+    if (!audioDB) await openAudioDB();
+    if (!audioDB) return [];
+
+    return new Promise((resolve) => {
+      try {
+        const tx = audioDB.transaction('tracks', 'readonly');
+        const store = tx.objectStore('tracks');
+        const req = store.getAll();
+        req.onsuccess = function() {
+          tracks = req.result || [];
+          renderTracksGrid();
+          resolve(tracks);
+        };
+        req.onerror = function() { resolve([]); };
+      } catch(err) { resolve([]); }
+    });
+  }
+
+  async function saveTrackToDB(track) {
+    if (!audioDB) await openAudioDB();
+    if (!audioDB) return false;
+
+    return new Promise((resolve) => {
+      try {
+        const tx = audioDB.transaction('tracks', 'readwrite');
+        const store = tx.objectStore('tracks');
+        store.put(track);
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => resolve(false);
+      } catch(e) { resolve(false); }
+    });
+  }
+
+  async function deleteTrackFromDB(id) {
+    if (!audioDB) await openAudioDB();
+    if (!audioDB) return;
+
+    return new Promise((resolve) => {
+      try {
+        const tx = audioDB.transaction('tracks', 'readwrite');
+        const store = tx.objectStore('tracks');
+        store.delete(id);
+        tx.oncomplete = () => {
+          tracks = tracks.filter(t => t.id !== id);
+          if (currentTrack && currentTrack.id === id) {
+            pauseAudio();
+            currentTrack = null;
+            updatePlayerUI();
+          }
+          renderTracksGrid();
+          showToast('🗑️ تم حذف المقطع الصوتي');
+          resolve(true);
+        };
+        tx.onerror = () => resolve(false);
+      } catch(e) { resolve(false); }
+    });
+  }
+
+  function formatTime(sec) {
+    if (!sec || isNaN(sec) || sec < 0) return "00:00";
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+
+  // عرض الصوتيات في شبكة متجاورة (2 بجانب بعض)
+  function renderTracksGrid() {
+    const grid = document.getElementById('tracksGrid');
+    grid.innerHTML = "";
+
+    if (tracks.length === 0) {
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:var(--ink-soft); font-size:0.78rem; padding:18px;">المكتبة الموسيقية فارغة.<br>اسحب مقاطعك أو اضغط (+ إضافة) لرفع موسيقاك المفضلة.</div>`;
+      return;
+    }
+
+    tracks.forEach(track => {
+      const card = document.createElement('div');
+      const isCurrent = currentTrack && currentTrack.id === track.id;
+      card.className = 'track-card' + (isCurrent ? ' active' : '');
+
+      const startStr = formatTime(track.startSec || 0);
+      const endStr = track.endSec ? formatTime(track.endSec) : (track.duration ? formatTime(track.duration) : "الكل");
+
+      card.innerHTML = `
+        <div class="track-card-top">
+          <span class="track-card-icon">🎵</span>
+          <span class="track-card-title" title="${escapeHtml(track.name)}">${escapeHtml(track.name)}</span>
+        </div>
+        <div class="track-card-badge">⏱️ ${startStr} - ${endStr}</div>
+        <div class="track-card-foot">
+          <button class="track-card-play-btn" title="${isCurrent && isPlayingAudio ? 'إيقاف' : 'تشغيل'}">
+            ${isCurrent && isPlayingAudio ? '⏸' : '▶'}
+          </button>
+          <button class="track-card-settings-btn" title="ضبط النطاق والإعدادات">
+            <span>⚙️</span>
+          </button>
+        </div>
+      `;
+
+      // النقر على الكارت أو زر التشغيل يشغل التراك
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.track-card-settings-btn')) return;
+        if (isCurrent) {
+          togglePlayPause();
+        } else {
+          playTrack(track);
+        }
+      });
+
+      // زر الإعدادات لكل صوتية يفتح نافذة التعديل المستقلة
+      card.querySelector('.track-card-settings-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        openTrackSettings(track);
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function playTrack(track) {
+    if (!track) return;
+    currentTrack = track;
+
+    if (audioObjectUrl) {
+      URL.revokeObjectURL(audioObjectUrl);
+    }
+    audioObjectUrl = URL.createObjectURL(track.blob);
+    audioEngine.src = audioObjectUrl;
+
+    const start = track.startSec || 0;
+    audioEngine.currentTime = start;
+
+    audioEngine.play().then(() => {
+      isPlayingAudio = true;
+      updatePlayerUI();
+      renderTracksGrid();
+    }).catch(err => console.warn(err));
+  }
+
+  function togglePlayPause() {
+    if (!currentTrack) {
+      if (tracks.length > 0) playTrack(tracks[0]);
+      else document.getElementById('audioFileInput').click();
+      return;
+    }
+
+    if (audioEngine.paused) {
+      audioEngine.play().then(() => {
+        isPlayingAudio = true;
+        updatePlayerUI();
+        renderTracksGrid();
+      }).catch(e => console.warn(e));
+    } else {
+      audioEngine.pause();
+      isPlayingAudio = false;
+      updatePlayerUI();
+      renderTracksGrid();
+    }
+  }
+
+  function pauseAudio() {
+    audioEngine.pause();
+    isPlayingAudio = false;
+    updatePlayerUI();
+    renderTracksGrid();
+  }
+
+  function updatePlayerUI() {
+    const playBtn = document.getElementById('btnPlayPause');
+    const fab = document.getElementById('audioFab');
+    const fabTitle = document.getElementById('fabTrackTitle');
+    const drawerTitle = document.getElementById('currentTrackTitle');
+
+    if (isPlayingAudio && currentTrack) {
+      playBtn.textContent = '⏸';
+      fab.classList.add('playing');
+      fabTitle.textContent = currentTrack.name;
+      drawerTitle.textContent = currentTrack.name;
+    } else {
+      playBtn.textContent = '▶';
+      fab.classList.remove('playing');
+      if (currentTrack) {
+        fabTitle.textContent = currentTrack.name;
+        drawerTitle.textContent = currentTrack.name;
+      } else {
+        fabTitle.textContent = 'موسيقى حِـبْـر';
+        drawerTitle.textContent = 'لا يوجد مقطع مختار';
+      }
+    }
+  }
+
+  // متابعة تشغيل الصوت والنطاق
+  audioEngine.addEventListener('timeupdate', () => {
+    if (!currentTrack) return;
+    const cur = audioEngine.currentTime;
+    const dur = audioEngine.duration || currentTrack.duration || 0;
+
+    document.getElementById('currentTimeDisplay').textContent = formatTime(cur);
+    const seekBar = document.getElementById('audioSeek');
+    if (dur > 0) {
+      seekBar.value = (cur / dur) * 100;
+    }
+
+    const stopTime = currentTrack.endSec && currentTrack.endSec > 0 ? currentTrack.endSec : dur;
+    const startTime = currentTrack.startSec || 0;
+
+    if (stopTime > startTime && cur >= stopTime) {
+      if (loopSegment) {
+        audioEngine.currentTime = startTime;
+        audioEngine.play().catch(e => console.warn(e));
+      } else {
+        audioEngine.pause();
+        audioEngine.currentTime = startTime;
+        isPlayingAudio = false;
+        updatePlayerUI();
+        renderTracksGrid();
+      }
+    }
+  });
+
+  audioEngine.addEventListener('loadedmetadata', () => {
+    if (currentTrack && (!currentTrack.duration || currentTrack.duration === 0)) {
+      currentTrack.duration = audioEngine.duration;
+      if (!currentTrack.endSec || currentTrack.endSec === 0) {
+        currentTrack.endSec = Math.floor(audioEngine.duration);
+      }
+      saveTrackToDB(currentTrack);
+    }
+  });
+
+  audioEngine.addEventListener('ended', () => {
+    const startTime = (currentTrack && currentTrack.startSec) || 0;
+    if (loopSegment) {
+      audioEngine.currentTime = startTime;
+      audioEngine.play().catch(e => console.warn(e));
+    } else {
+      isPlayingAudio = false;
+      updatePlayerUI();
+      renderTracksGrid();
+    }
+  });
+
+  document.getElementById('audioSeek').addEventListener('input', function() {
+    if (!audioEngine.duration) return;
+    audioEngine.currentTime = (this.value / 100) * audioEngine.duration;
+  });
+
+  document.getElementById('audioVolume').addEventListener('input', function() {
+    audioEngine.volume = this.value;
+  });
+
+  document.getElementById('btnPlayPause').addEventListener('click', togglePlayPause);
+  document.getElementById('btnLoopTrack').addEventListener('click', function() {
+    loopSegment = !loopSegment;
+    this.classList.toggle('active', loopSegment);
+    showToast(loopSegment ? '🔁 تكرار النطاق: مفعّل' : 'تكرار النطاق: معطل');
+  });
+
+  document.getElementById('btnPrevTrack').addEventListener('click', () => {
+    if (tracks.length === 0) return;
+    const idx = currentTrack ? tracks.findIndex(t => t.id === currentTrack.id) : 0;
+    const prevIdx = (idx - 1 + tracks.length) % tracks.length;
+    playTrack(tracks[prevIdx]);
+  });
+
+  document.getElementById('btnNextTrack').addEventListener('click', () => {
+    if (tracks.length === 0) return;
+    const idx = currentTrack ? tracks.findIndex(t => t.id === currentTrack.id) : 0;
+    const nextIdx = (idx + 1) % tracks.length;
+    playTrack(tracks[nextIdx]);
+  });
+
+  // معالجة ملفات الصوت المسحوبة والمفلتة
+  async function handleAudioDrop(fileList) {
+    if (!fileList || fileList.length === 0) return;
+    let added = 0;
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList[i];
+      if (!file.type.includes('audio') && !file.name.match(/\.(mp3|wav|m4a|ogg|aac|flac)$/i)) continue;
+
+      const trackName = file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " ");
+      const newTrack = {
+        id: 'track_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+        name: trackName,
+        blob: file,
+        duration: 0,
+        startSec: 0,
+        endSec: 0,
+        createdAt: Date.now()
+      };
+
+      await saveTrackToDB(newTrack);
+      tracks.push(newTrack);
+      added++;
+      if (added === 1 && !currentTrack) playTrack(newTrack);
+    }
+
+    if (added > 0) {
+      renderTracksGrid();
+      showToast(`🎵 تم إضافة ${added} مقطع صوتي`);
+      document.getElementById('audioDrawer').classList.add('open');
+    }
+  }
+
+  // نافذة ضبط النطاق والشريط المرئي (Visual Timeline)
+  function openTrackSettings(track) {
+    editingTrack = track;
+    const modal = document.getElementById('trackSettingsModal');
+    document.getElementById('modalTrackName').value = track.name || "";
+
+    const dur = track.duration || (currentTrack && currentTrack.id === track.id ? audioEngine.duration : 120) || 120;
+    const start = track.startSec || 0;
+    const end = track.endSec && track.endSec > 0 ? track.endSec : Math.floor(dur);
+
+    document.getElementById('startSecNum').value = Math.floor(start);
+    document.getElementById('endSecNum').value = Math.floor(end);
+
+    updateVisualTimelineUI(start, end, dur);
+    modal.classList.add('open');
+  }
+
+  function updateVisualTimelineUI(start, end, dur) {
+    if (!dur || dur <= 0) dur = 100;
+    const startPct = Math.min(100, Math.max(0, (start / dur) * 100));
+    const endPct = Math.min(100, Math.max(0, (end / dur) * 100));
+
+    const segment = document.getElementById('timelineActiveSegment');
+    segment.style.left = `${Math.min(startPct, endPct)}%`;
+    segment.style.width = `${Math.abs(endPct - startPct)}%`;
+
+    document.getElementById('rangeStartSlider').value = startPct;
+    document.getElementById('rangeEndSlider').value = endPct;
+
+    document.getElementById('timelineRangeDisplay').textContent = `${formatTime(start)} - ${formatTime(end)}`;
+  }
+
+  document.getElementById('rangeStartSlider').addEventListener('input', function() {
+    if (!editingTrack) return;
+    const dur = editingTrack.duration || (currentTrack && currentTrack.id === editingTrack.id ? audioEngine.duration : 120) || 120;
+    const start = (this.value / 100) * dur;
+    document.getElementById('startSecNum').value = Math.floor(start);
+    const end = parseFloat(document.getElementById('endSecNum').value) || dur;
+    updateVisualTimelineUI(start, end, dur);
+  });
+
+  document.getElementById('rangeEndSlider').addEventListener('input', function() {
+    if (!editingTrack) return;
+    const dur = editingTrack.duration || (currentTrack && currentTrack.id === editingTrack.id ? audioEngine.duration : 120) || 120;
+    const end = (this.value / 100) * dur;
+    document.getElementById('endSecNum').value = Math.floor(end);
+    const start = parseFloat(document.getElementById('startSecNum').value) || 0;
+    updateVisualTimelineUI(start, end, dur);
+  });
+
+  document.getElementById('startSecNum').addEventListener('input', function() {
+    if (!editingTrack) return;
+    const dur = editingTrack.duration || 120;
+    updateVisualTimelineUI(parseFloat(this.value) || 0, parseFloat(document.getElementById('endSecNum').value) || dur, dur);
+  });
+
+  document.getElementById('endSecNum').addEventListener('input', function() {
+    if (!editingTrack) return;
+    const dur = editingTrack.duration || 120;
+    updateVisualTimelineUI(parseFloat(document.getElementById('startSecNum').value) || 0, parseFloat(this.value) || dur, dur);
+  });
+
+  document.getElementById('btnSetStartModal').addEventListener('click', () => {
+    const cur = Math.floor(audioEngine.currentTime || 0);
+    document.getElementById('startSecNum').value = cur;
+    const dur = (editingTrack && editingTrack.duration) || 120;
+    updateVisualTimelineUI(cur, parseFloat(document.getElementById('endSecNum').value) || dur, dur);
+  });
+
+  document.getElementById('btnSetEndModal').addEventListener('click', () => {
+    const cur = Math.ceil(audioEngine.currentTime || 0);
+    document.getElementById('endSecNum').value = cur;
+    const dur = (editingTrack && editingTrack.duration) || 120;
+    updateVisualTimelineUI(parseFloat(document.getElementById('startSecNum').value) || 0, cur, dur);
+  });
+
+  document.getElementById('btnSaveTrackModal').addEventListener('click', () => {
+    if (!editingTrack) return;
+    const newName = document.getElementById('modalTrackName').value.trim() || editingTrack.name;
+    const start = parseFloat(document.getElementById('startSecNum').value) || 0;
+    const end = parseFloat(document.getElementById('endSecNum').value) || 0;
+
+    if (end > 0 && end <= start) {
+      alert('وقت التوقف يجب أن يكون أكبر من وقت البدء.');
+      return;
+    }
+
+    editingTrack.name = newName;
+    editingTrack.startSec = start;
+    editingTrack.endSec = end;
+
+    saveTrackToDB(editingTrack);
+    renderTracksGrid();
+    if (currentTrack && currentTrack.id === editingTrack.id) {
+      currentTrack = editingTrack;
+      updatePlayerUI();
+    }
+
+    document.getElementById('trackSettingsModal').classList.remove('open');
+    showToast('💾 تم حفظ وضبط نطاق المقطع');
+  });
+
+  document.getElementById('btnCancelTrackModal').addEventListener('click', () => {
+    document.getElementById('trackSettingsModal').classList.remove('open');
+  });
+
+  document.getElementById('btnDeleteTrackModal').addEventListener('click', () => {
+    if (!editingTrack) return;
+    if (confirm(`هل تريد بالتأكيد حذف مقطع "${editingTrack.name}"؟`)) {
+      deleteTrackFromDB(editingTrack.id);
+      document.getElementById('trackSettingsModal').classList.remove('open');
+    }
+  });
+
+  // فتح وإغلاق قائمة الصوتيات
+  document.getElementById('audioFab').addEventListener('click', () => {
+    document.getElementById('audioDrawer').classList.toggle('open');
+  });
+  document.getElementById('btnDrawerClose').addEventListener('click', () => {
+    document.getElementById('audioDrawer').classList.remove('open');
+  });
+
+  // إضافة صوتية
+  document.getElementById('btnUploadAudioDrawer').addEventListener('click', () => {
+    document.getElementById('audioFileInput').click();
+  });
+  document.getElementById('audioDropzone').addEventListener('click', () => {
+    document.getElementById('audioFileInput').click();
+  });
+
+  document.getElementById('audioFileInput').addEventListener('change', function() {
+    handleAudioDrop(this.files);
+    this.value = "";
+  });
+
+  // إفلات مباشر داخل الدرج
+  const dropzoneEl = document.getElementById('audioDropzone');
+  dropzoneEl.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropzoneEl.classList.add('dragover');
+  });
+  dropzoneEl.addEventListener('dragleave', () => dropzoneEl.classList.remove('dragover'));
+  dropzoneEl.addEventListener('drop', e => {
+    e.preventDefault();
+    dropzoneEl.classList.remove('dragover');
+    if (e.dataTransfer.files) handleAudioDrop(e.dataTransfer.files);
+  });
+
+  // =============================================
+  // إدارة الثيمات البيج المتعددة
+  // =============================================
+  const THEME_NAMES = {
+    'beige-warm': 'بيج دافئ',
+    'beige-sand': 'بيج رملي',
+    'beige-ivory': 'أبيض عاجي',
+    'beige-linen': 'خيش كتاني',
+    'sepia': 'سيبيا تراثي',
+    'beige-vintage': 'بيج عتيق',
+    'night': 'ليلي مذهب'
+  };
+
+  function applyTheme(t) {
+    document.body.setAttribute("data-theme", t);
+    document.getElementById('currentThemeName').textContent = THEME_NAMES[t] || 'بيج دافئ';
+    
+    document.querySelectorAll('.theme-opt').forEach(opt => {
+      opt.classList.toggle('active', opt.getAttribute('data-t') === t);
+    });
+
+    try { localStorage.setItem('hibr_theme', t); } catch(e){}
+  }
+
+  // قائمة الثيمات
+  const themeBtn = document.getElementById('themeDropdownBtn');
+  const themeMenu = document.getElementById('themeMenu');
+
+  themeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    themeMenu.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.theme-opt').forEach(opt => {
+    opt.addEventListener('click', function() {
+      applyTheme(this.getAttribute('data-t'));
+      themeMenu.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', () => {
+    themeMenu.classList.remove('open');
+  });
+
+  // =============================================
+  // البحث
+  // =============================================
   function performSearch(query) {
-    var resultsDiv = document.getElementById('searchResults');
+    const resultsDiv = document.getElementById('searchResults');
     if (!query.trim()) {
       resultsDiv.style.display = "none";
       return;
     }
-    var normalizedQuery = removeDiacritics(query.trim().toLowerCase());
-    var results = [];
 
-    books.forEach(function(book) {
-      var title = book.title || "";
-      var text = book.text || "";
-      var normalizedTitle = removeDiacritics(title.toLowerCase());
-      var normalizedText = removeDiacritics(text.toLowerCase());
+    const normalizedQuery = removeDiacritics(query.trim().toLowerCase());
+    const results = [];
 
-      if (normalizedTitle.indexOf(normalizedQuery) !== -1) {
-        results.push({
-          bookId: book.id,
-          bookTitle: title,
-          snippet: title,
-          matchType: "title"
-        });
+    books.forEach(book => {
+      const title = book.title || "";
+      const text = book.text || "";
+      const normalizedTitle = removeDiacritics(title.toLowerCase());
+      const normalizedText = removeDiacritics(text.toLowerCase());
+
+      if (normalizedTitle.includes(normalizedQuery)) {
+        results.push({ bookId: book.id, bookTitle: title || "بلا عنوان", snippet: title });
       }
 
-      var index = normalizedText.indexOf(normalizedQuery);
-      if (index !== -1) {
-        var start = Math.max(0, index - 40);
-        var end = Math.min(text.length, index + normalizedQuery.length + 40);
-        var snippet = text.substring(start, end);
-        var highlightedSnippet = snippet.replace(new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), function(match){
-          return '<mark>' + match + '</mark>';
-        });
-        results.push({
-          bookId: book.id,
-          bookTitle: title,
-          snippet: highlightedSnippet,
-          matchType: "text",
-          matchStart: index,
-          matchEnd: index + normalizedQuery.length
-        });
+      const idx = normalizedText.indexOf(normalizedQuery);
+      if (idx !== -1) {
+        const start = Math.max(0, idx - 40);
+        const end = Math.min(text.length, idx + normalizedQuery.length + 40);
+        const snippet = text.substring(start, end);
+        const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+        const highlighted = snippet.replace(regex, m => `<mark>${m}</mark>`);
+        results.push({ bookId: book.id, bookTitle: title || "بلا عنوان", snippet: highlighted });
       }
     });
 
     if (results.length === 0) {
-      resultsDiv.innerHTML = '<div class="no-results">لا توجد نتائج</div>';
+      resultsDiv.innerHTML = '<div class="no-results">لا توجد نتائج تطابق بحثك</div>';
       resultsDiv.style.display = "block";
       return;
     }
 
-    var html = '';
-    results.slice(0, 10).forEach(function(res) {
-      html += '<div class="result-item" data-bookid="'+res.bookId+'" data-query="'+escapeHtml(query)+'">';
-      html += '<div class="book-title">📖 ' + escapeHtml(res.bookTitle) + '</div>';
-      if (res.matchType === "text") {
-        html += '<span class="snippet">' + res.snippet + '</span>';
-      } else {
-        html += '<span class="snippet" style="color:var(--ink-soft)">(عنوان)</span>';
-      }
-      html += '</div>';
+    let html = '';
+    results.slice(0, 10).forEach(res => {
+      html += `
+        <div class="result-item" data-bookid="${res.bookId}">
+          <div class="book-title">📖 ${escapeHtml(res.bookTitle)}</div>
+          <span class="snippet">${res.snippet}</span>
+        </div>
+      `;
     });
+
     resultsDiv.innerHTML = html;
     resultsDiv.style.display = "block";
 
-    resultsDiv.querySelectorAll('.result-item').forEach(function(item) {
-      item.addEventListener('click', function(e) {
-        var bookId = this.dataset.bookid;
-        var query = this.dataset.query;
-        document.getElementById('searchResults').style.display = "none";
+    resultsDiv.querySelectorAll('.result-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const bookId = this.dataset.bookid;
+        resultsDiv.style.display = "none";
         document.getElementById('searchInput').value = "";
-        if (bookId) {
-          openBook(bookId, query);
-        }
+        if (bookId) openBook(bookId, false);
       });
     });
   }
 
   // =============================================
-  // الثيمات
-  // =============================================
-  function applyTheme(t) {
-    document.body.setAttribute("data-theme", t);
-    document.querySelectorAll('.theme-dot').forEach(function(d) {
-      d.classList.toggle("active", d.getAttribute("data-t") === t);
-    });
-    try { localStorage.setItem('maktabati_theme', t); } catch(e) {}
-  }
-
-  // =============================================
-  // تسجيل الخروج
+  // تسجيل الخروج والإعدادات
   // =============================================
   function logout() {
-    if (confirm("هل تريد تسجيل الخروج؟")) {
+    if (confirm("هل تريد إغلاق محبرتك والخروج؟")) {
+      pauseAudio();
       setLoggedIn(false);
       document.getElementById('app').style.display = 'none';
       document.getElementById('loginScreen').classList.remove('hidden');
@@ -936,79 +2904,214 @@
     }
   }
 
+  function openSettings() {
+    const cfg = getConfig();
+    document.getElementById('cfgToken').value = cfg.token || '';
+    document.getElementById('cfgRepo').value = cfg.repo || '';
+    document.getElementById('cfgPath').value = cfg.path || '';
+    document.getElementById('cfgPassword').value = cfg.password || '';
+    document.getElementById('settingsModal').classList.add('open');
+  }
+
+  function closeSettings() {
+    document.getElementById('settingsModal').classList.remove('open');
+  }
+
+  function saveSettingsForm() {
+    const cfg = {
+      token: document.getElementById('cfgToken').value.trim(),
+      repo: document.getElementById('cfgRepo').value.trim(),
+      path: document.getElementById('cfgPath').value.trim(),
+      password: document.getElementById('cfgPassword').value.trim()
+    };
+    saveConfig(cfg);
+    closeSettings();
+    showToast('⚙️ تم حفظ الإعدادات');
+    syncFromGitHub();
+  }
+
+  function exportJSONBackup() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(books, null, 2));
+    const dlAnchor = document.createElement('a');
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", `نسخة_حبر_الاحتياطية_${new Date().toISOString().slice(0,10)}.json`);
+    dlAnchor.click();
+    showToast('📤 تم تصدير النسخة الاحتياطية بنجاح');
+  }
+
+  function importJSONBackup(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      try {
+        const imported = JSON.parse(evt.target.result);
+        if (Array.isArray(imported)) {
+          if (confirm(`هل تريد استيراد ${imported.length} كتاب واستبدال البيانات الحالية؟`)) {
+            books = imported;
+            saveBooksToLocal();
+            syncToGitHub();
+            renderLibrary("");
+            showToast('✅ تم استيراد البيانات بنجاح');
+            closeSettings();
+          }
+        }
+      } catch(err) { alert('خطأ في قراءة ملف JSON'); }
+    };
+    reader.readAsText(file);
+  }
+
   // =============================================
   // تهيئة التطبيق
   // =============================================
   async function initApp() {
-    var savedTheme = localStorage.getItem('maktabati_theme') || "day";
+    const savedTheme = localStorage.getItem('hibr_theme') || "beige-warm";
     applyTheme(savedTheme);
 
     await syncFromGitHub();
-    renderLibrary("");
+    await loadTracksFromDB();
+    initDragAndDrop();
 
-    // ربط الأحداث
+    // ربط استيراد ملفات TXT
+    const txtInput = document.getElementById('txtFileInput');
+    document.getElementById('btnImportTxtTop').addEventListener('click', () => txtInput.click());
+    const shelfBtn = document.getElementById('btnImportTxtShelf');
+    if (shelfBtn) shelfBtn.addEventListener('click', () => txtInput.click());
+
+    txtInput.addEventListener('change', function() {
+      if (this.files && this.files.length > 0) {
+        importTxtFiles(this.files);
+        this.value = "";
+      }
+    });
+
+    // ربط الأحداث العامة
     document.getElementById('btnNewBook').addEventListener('click', createNewBook);
     document.getElementById('brandHome').addEventListener('click', goBackToLibrary);
     document.getElementById('btnBack').addEventListener('click', goBackToLibrary);
 
-    document.getElementById('btnEdit').addEventListener('click', function() {
-      if (!currentId) return;
-      isEditing = true;
-      document.getElementById('pageSurface').contentEditable = "true";
-      this.style.display = "none";
-      document.getElementById('btnSave').style.display = "inline-block";
-      document.getElementById('colorEditArea').classList.add("visible");
-      document.getElementById('pageSurface').focus();
-      setSaved(true);
+    // زر التعديل والحفظ
+    document.getElementById('btnEdit').addEventListener('click', () => setEditMode(true));
+    document.getElementById('btnSave').addEventListener('click', () => {
+      doSave(true);
+      setEditMode(false);
     });
 
-    document.getElementById('btnSave').addEventListener('click', function() {
-      if (!currentId) return;
-      doSave();
-      isEditing = false;
-      document.getElementById('pageSurface').contentEditable = "false";
-      document.getElementById('btnEdit').style.display = "inline-block";
-      this.style.display = "none";
-      document.getElementById('colorEditArea').classList.remove("visible");
-      setSaved(true);
+    // معالجة لصق النصوص النظيفة
+    document.getElementById('pageSurface').addEventListener('paste', handlePasteCleanly);
+
+    // أزرار ضبط الشعر والمسافات
+    document.getElementById('btnFormatPoetry').addEventListener('click', formatPoetrySpacing);
+    document.getElementById('btnCleanSpacing').addEventListener('click', cleanEmptySpacing);
+
+    // تحكم الخطوط وتنسيق الصفحة
+    document.getElementById('fontSelector').addEventListener('change', function() {
+      const surface = document.getElementById('pageSurface');
+      surface.style.fontFamily = this.value;
+      triggerAutoSave();
     });
 
-    document.getElementById('titleField').addEventListener('input', function() {
-      if (isEditing) setSaved(false);
-    });
-    document.getElementById('pageSurface').addEventListener('input', function() {
-      if (isEditing) { updateWordCount(); setSaved(false); }
-    });
-
-    document.getElementById('colorPickerInput').addEventListener('input', function() {
-      var color = this.value;
-      document.getElementById('colorPreview').style.background = color;
-      var book = findBook(currentId);
-      if (book) book.color = color;
-    });
-
-    document.getElementById('searchInput').addEventListener('input', function() {
-      var query = this.value;
-      if (query.trim().length > 0) {
-        performSearch(query);
-      } else {
-        document.getElementById('searchResults').style.display = "none";
+    let currentFontSizeRem = 1.36;
+    document.getElementById('btnIncreaseFontSize').addEventListener('click', () => {
+      if (currentFontSizeRem < 2.3) {
+        currentFontSizeRem += 0.12;
+        document.getElementById('pageSurface').style.fontSize = currentFontSizeRem.toFixed(2) + 'rem';
+        triggerAutoSave();
       }
     });
 
-    document.addEventListener('click', function(e) {
+    document.getElementById('btnDecreaseFontSize').addEventListener('click', () => {
+      if (currentFontSizeRem > 1.05) {
+        currentFontSizeRem -= 0.12;
+        document.getElementById('pageSurface').style.fontSize = currentFontSizeRem.toFixed(2) + 'rem';
+        triggerAutoSave();
+      }
+    });
+
+    document.getElementById('lineSpacingSelector').addEventListener('change', function() {
+      document.getElementById('pageSurface').style.lineHeight = this.value;
+      triggerAutoSave();
+    });
+
+    document.getElementById('textAlignSelector').addEventListener('change', function() {
+      document.getElementById('pageSurface').style.textAlign = this.value;
+      triggerAutoSave();
+    });
+
+    // الاستماع للكتابة
+    document.getElementById('titleField').addEventListener('input', triggerAutoSave);
+    document.getElementById('pageSurface').addEventListener('input', () => {
+      updateCounters();
+      triggerAutoSave();
+    });
+
+    document.getElementById('titleField').addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('pageSurface').focus();
+      }
+    });
+
+    document.getElementById('colorPickerInput').addEventListener('input', function() {
+      const book = findBook(currentId);
+      if (book) {
+        book.color = this.value;
+        triggerAutoSave();
+      }
+    });
+
+    // وضع التصوير
+    document.getElementById('btnOpenCapture').addEventListener('click', openCaptureModal);
+    document.getElementById('btnCloseCapture').addEventListener('click', closeCaptureModal);
+    document.getElementById('btnDownloadImage').addEventListener('click', downloadPoemImage);
+    document.getElementById('btnCopyImage').addEventListener('click', copyPoemImage);
+    document.getElementById('cardThemeSelect').addEventListener('change', function() {
+      document.getElementById('photoCard').setAttribute('data-card-theme', this.value);
+    });
+
+    // أزرار تحديد مقاسات المنصات
+    document.querySelectorAll('.ratio-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const ratio = this.getAttribute('data-ratio');
+        document.getElementById('photoCard').setAttribute('data-ratio', ratio);
+      });
+    });
+
+    // تكبير وتصغير الخط في التصوير
+    document.getElementById('btnCapFontPlus').addEventListener('click', () => {
+      currentCapFontSizeRem += 0.1;
+      document.getElementById('photoBodyDisplay').style.fontSize = currentCapFontSizeRem.toFixed(2) + 'rem';
+    });
+    document.getElementById('btnCapFontMinus').addEventListener('click', () => {
+      if (currentCapFontSizeRem > 0.9) {
+        currentCapFontSizeRem -= 0.1;
+        document.getElementById('photoBodyDisplay').style.fontSize = currentCapFontSizeRem.toFixed(2) + 'rem';
+      }
+    });
+
+    // البحث
+    document.getElementById('searchInput').addEventListener('input', function() {
+      performSearch(this.value);
+    });
+
+    document.addEventListener('click', e => {
       if (!e.target.closest('.search-wrap')) {
         document.getElementById('searchResults').style.display = "none";
       }
     });
 
-    document.getElementById('modalCancel').addEventListener('click', function() {
+    // مودال الحذف
+    document.getElementById('modalCancel').addEventListener('click', () => {
       pendingDeleteId = null;
-      document.getElementById('modalBackdrop').classList.remove("open");
+      document.getElementById('modalBackdrop').classList.remove('open');
     });
-    document.getElementById('modalConfirm').addEventListener('click', function() {
+
+    document.getElementById('modalConfirm').addEventListener('click', () => {
       if (pendingDeleteId) {
-        books = books.filter(function(b) { return b.id !== pendingDeleteId; });
+        books = books.filter(b => b.id !== pendingDeleteId);
         saveBooksToLocal();
         syncToGitHub();
         if (currentId === pendingDeleteId) {
@@ -1016,32 +3119,41 @@
           showScreen("library");
         }
         renderLibrary(document.getElementById('searchInput').value);
+        showToast('🗑️ تم حذف الديوان');
       }
       pendingDeleteId = null;
-      document.getElementById('modalBackdrop').classList.remove("open");
+      document.getElementById('modalBackdrop').classList.remove('open');
     });
+
     document.getElementById('modalBackdrop').addEventListener('click', function(e) {
       if (e.target === this) document.getElementById('modalCancel').click();
     });
 
-    document.querySelectorAll('.theme-dot').forEach(function(dot) {
-      dot.addEventListener('click', function() { applyTheme(this.getAttribute('data-t')); });
-    });
-
+    // الإعدادات والخروج
+    document.getElementById('btnSettings').addEventListener('click', openSettings);
+    document.getElementById('btnCancelSettings').addEventListener('click', closeSettings);
+    document.getElementById('btnSaveSettings').addEventListener('click', saveSettingsForm);
+    document.getElementById('btnExportJSON').addEventListener('click', exportJSONBackup);
+    document.getElementById('btnImportJSON').addEventListener('change', importJSONBackup);
     document.getElementById('logoutBtn').addEventListener('click', logout);
 
-    window.addEventListener('keydown', function(e) {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+    // اختصارات المفاتيح
+    window.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
         e.preventDefault();
-        if (currentId && isEditing) doSave();
+        if (currentId) doSave(true);
       }
-      if (e.key === "Escape" && document.getElementById('modalBackdrop').classList.contains('open')) {
-        document.getElementById('modalCancel').click();
+      if (e.key === 'Escape') {
+        if (document.getElementById('captureModal').classList.contains('open')) closeCaptureModal();
+        if (document.getElementById('modalBackdrop').classList.contains('open')) document.getElementById('modalCancel').click();
+        if (document.getElementById('settingsModal').classList.contains('open')) closeSettings();
+        if (document.getElementById('trackSettingsModal').classList.contains('open')) document.getElementById('trackSettingsModal').classList.remove('open');
+        if (document.getElementById('audioDrawer').classList.contains('open')) document.getElementById('audioDrawer').classList.remove('open');
       }
     });
 
-    window.addEventListener('beforeunload', function() {
-      if (currentId) doSave();
+    window.addEventListener('beforeunload', () => {
+      if (currentId) doSave(false);
     });
 
     document.getElementById('app').style.display = 'flex';
@@ -1051,26 +3163,38 @@
   // شاشة تسجيل الدخول
   // =============================================
   function handleLogin() {
-    var password = document.getElementById('loginPassword').value;
-    var errorEl = document.getElementById('loginError');
-    if (!password) {
-      errorEl.textContent = 'الرجاء إدخال كلمة السر';
+    const entered = document.getElementById('loginPassword').value;
+    const errorEl = document.getElementById('loginError');
+    const cfg = getConfig();
+
+    if (!entered) {
+      errorEl.textContent = 'يرجى إدخال كلمة المرور';
       return;
     }
-    if (password === PASSWORD) {
+
+    if (entered === cfg.password) {
       setLoggedIn(true);
       document.getElementById('loginScreen').classList.add('hidden');
       initApp();
     } else {
-      errorEl.textContent = 'كلمة السر غير صحيحة';
+      errorEl.textContent = 'كلمة المرور غير صحيحة، حاول مجدداً';
       document.getElementById('loginPassword').value = '';
       document.getElementById('loginPassword').focus();
     }
   }
 
-  // =============================================
-  // بدء التشغيل - فحص الجلسة
-  // =============================================
+  document.getElementById('togglePasswordBtn').addEventListener('click', function() {
+    const input = document.getElementById('loginPassword');
+    const isPass = input.type === 'password';
+    input.type = isPass ? 'text' : 'password';
+    this.textContent = isPass ? '🙈' : '👁️';
+  });
+
+  document.getElementById('loginBtn').addEventListener('click', handleLogin);
+  document.getElementById('loginPassword').addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleLogin();
+  });
+
   if (isLoggedIn()) {
     document.getElementById('loginScreen').classList.add('hidden');
     initApp();
@@ -1078,11 +3202,6 @@
     document.getElementById('loginScreen').classList.remove('hidden');
     document.getElementById('app').style.display = 'none';
   }
-
-  document.getElementById('loginBtn').addEventListener('click', handleLogin);
-  document.getElementById('loginPassword').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') handleLogin();
-  });
 
 })();
 </script>
