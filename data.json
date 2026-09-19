@@ -3,9 +3,12 @@
     "id": "hibr_mu85swk6_5nq5f9",
     "title": "",
     "color": "#7a2e4e",
-    "text": "",
+    "text": "-",
     "createdAt": 1789808556246,
-    "updatedAt": 1789808556246
+    "updatedAt": 1789808568160,
+    "fontFamily": "Aref Ruqaa",
+    "lineHeight": "2.7",
+    "textAlign": "center"
   },
   {
     "id": "b_mtn9arfi_4q0wyt",
